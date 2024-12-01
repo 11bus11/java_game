@@ -14,7 +14,7 @@ public class CatTressure {
             posX = x;
             posY = y;
         }
-        public static void main(String[] args) {
+        public static void main(int args) {
             //create dungeon?//
             CatTressure game = new CatTressure();
             CatTressure.DungeonRoom room = game.new DungeonRoom();
