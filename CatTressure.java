@@ -1,33 +1,40 @@
 public class CatTressure {
-   public CatTressure() {
-   }
-    
-   CatTressure.DungeonRoom room = new DungeonRoom();
+    //private int pos;//
+    public CatTressure() {
+    }
+    CatTressure game = new CatTressure();
 
-    public class DungeonRoom {
-        public int roomDesc;
-        public int posX;
-        public int posY;
+    public class DungeonRoom extends CatTressure {
+        String roomDesc;
+        int posX;
+        int posY;
         //constructor//
-        public DungeonRoom(int desc, int x, int y) {
-            roomDesc = desc;
-            posX = x;
-            posY = y;
-            
-        }
-        public void CreateRoom() {
-            //create dungeon?//
-            DungeonRoom room1 = new DungeonRoom(100, 3, 1);  
-        }
+        public DungeonRoom(int roomX) {
+            roomX = posX;
 
+            System.out.println("Constructor Called");
+        }
+        public static void CreateRoom() {
+            DungeonRoom room1 = new DungeonRoom(1);
+            room1.posY = 2;
+            room1.roomDesc = "gr";
+        }
+        public static void main() {
+            //CreateRoom();//
+            DungeonRoom room1 = new DungeonRoom(1);
+            room1.posY = 2;
+            room1.roomDesc = "gr";
+            System.out.println("hrhr");
+            System.out.println(room1.roomDesc);
+        }
     }
-    public class Player {
-        private int pos;
-    }
-    public static void main(String[] args) {
-        
+    public static void main() {
+        //CreateRoom();//
+        DungeonRoom room1 = game.new DungeonRoom(1);
+        room1.posY = 2;
+        room1.roomDesc = "gr";
         System.out.println("hrhr");
-        System.out.println(room1.roomDesc)
+        System.out.println(room1.roomDesc);
     }
     
 }
