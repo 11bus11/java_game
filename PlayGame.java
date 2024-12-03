@@ -11,8 +11,8 @@ class DungeonRoom {
     int posX;
     int posY;
     //constructor//
-    public DungeonRoom(String desc) {
-        desc = roomDesc;
+    public DungeonRoom() {
+        //desc = roomDesc;
         //x = posX;
         //y = posY;
 
@@ -20,10 +20,12 @@ class DungeonRoom {
     
     }
     public static void createRoom() {
-        DungeonRoom room1 = new DungeonRoom("rer");
+        //final String room1 = "room1";
+        DungeonRoom room1 = new DungeonRoom();
+        room1.roomDesc = "thed";
         room1.posY = 2;
-        room1.roomDesc = "gr";
-        System.out.println("beep beep running " + room1.posY);
+        room1.posX = 1;
+        System.out.println("beep beep running " + room1.roomDesc);
     }
 }
 
