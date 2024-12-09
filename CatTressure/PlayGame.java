@@ -65,6 +65,7 @@ public class PlayGame {
         //FOR-LOOP going thru the array and checking if connroom is there
 
         int place = 0;
+        //add while loop that runs as long as the player is alive
         for (int counter = 0; counter <= 5; counter++) {
             System.out.println(counter);
             System.out.println(place + " place");
