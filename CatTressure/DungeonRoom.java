@@ -5,14 +5,14 @@ package CatTressure;
 public class DungeonRoom {
     String roomId; 
     String roomDesc;
-    int posX;
-    int posY;
+
     //constructor//
-    public DungeonRoom(String roomId) {
+    public DungeonRoom(String roomId, String roomDesc) {
         this.roomId = roomId;
-        System.out.println("Constructor Called - Room");
+        //System.out.println("Constructor Called - Room");
     }
-    
+
+
 
     public String getRoom() {
         return this.roomId;
