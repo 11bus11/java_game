@@ -8,4 +8,8 @@ public class Player {
         this.pos = pos;
         this.status = status;
     }
+
+    public int getPos() {
+        return this.pos.roomId;
+    }
 }
