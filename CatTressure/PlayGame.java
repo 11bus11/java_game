@@ -48,7 +48,7 @@ public class PlayGame {
         
         
 
-        Player player = new Player(room6, true);
+        Player player = new Player(room3, true);
         System.out.println(player.pos);
 
 
@@ -72,14 +72,28 @@ public class PlayGame {
                 
                 for (int counter1 = 0; counter1 <= 4; counter1++) {
                     DungeonDoor holderDoor = arrayDoors.get(place);
+                    //testing all doors connected to the players current position
+                    if (holderRoom.getConn1() == null) {
+                        System.out.println("null door");
+                    } else
                     if (holderDoor.getDoor() == holderRoom.getConn1().doorId) {
-                        System.out.println("yes door " + holderRoom.getConn1().doorId);
+                        //check which direction door is pointing
+                        //north
+                        System.out.println("north " + holderRoom.getConn1().doorId);
+                    }
+                    if (holderRoom.getConn2() == null) {
+                        System.out.println("null door");
                     } else
                     if (holderDoor.getDoor() == holderRoom.getConn2().doorId) {
                         System.out.println("yes  door " + holderRoom.getConn2().doorId);
+                        //west or east (odd or even)
+                    }
+                    if (holderRoom.getConn3() == null) {
+                        System.out.println("null door");
                     } else
                     if (holderDoor.getDoor() == holderRoom.getConn3().doorId) {
-                    System.out.println("yes door door " + holderRoom.getConn3().doorId);
+                        //south
+                        System.out.println("yes door " + holderRoom.getConn3().doorId);
                     }
                     place++;
                 }
