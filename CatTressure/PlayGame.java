@@ -48,15 +48,19 @@ public class PlayGame {
         
         
 
-        Player player = new Player(room3, true);
+        Player player = new Player(room6, true);
         System.out.println(player.pos);
 
 
         //Controlls - variables
         String west = "w";
+        boolean statusWest = false;
         String east = "e";
+        boolean statusEast = false;
         String north = "n";
+        boolean statusNorth = false;
         String south = "s";
+        boolean statusSouth = false;
 
         //FOR-LOOP going thru the array and checking if connroom is there
 
@@ -78,6 +82,7 @@ public class PlayGame {
                     } else
                     if (holderDoor.getDoor() == holderRoom.getConn1().doorId) {
                         //check which direction door is pointing
+                        statusNorth = true;
                         //north
                         System.out.println("north " + holderRoom.getConn1().doorId);
                     }
@@ -87,12 +92,17 @@ public class PlayGame {
                     if (holderDoor.getDoor() == holderRoom.getConn2().doorId) {
                         System.out.println("yes  door " + holderRoom.getConn2().doorId);
                         //west or east (odd or even)
+                        if (player.pos.roomId % 2 == 0) {
+                            //even
+                            statusWest = true;
+                        } else 
+                        statusEast = true;
                     }
                     if (holderRoom.getConn3() == null) {
                         System.out.println("null door");
                     } else
                     if (holderDoor.getDoor() == holderRoom.getConn3().doorId) {
-                        //south
+                        statusSouth = true;
                         System.out.println("yes door " + holderRoom.getConn3().doorId);
                     }
                     place++;
@@ -101,7 +111,9 @@ public class PlayGame {
                 System.out.println("no");
                 place++;
             }
+            System.out.println("west: " + statusEast + ", north: " + statusNorth + ", south: " + statusSouth + ", west: " + statusWest);
         }
+        
     }
 }
 
