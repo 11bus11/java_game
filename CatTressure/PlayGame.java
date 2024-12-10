@@ -3,6 +3,7 @@ package CatTressure;
 
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PlayGame {
     
@@ -108,21 +109,33 @@ public class PlayGame {
                     System.out.println("no");
                     place++;
                 }
-                
-                String choices = "";
-                if (statusEast == true) {
-                    choices = choices + "east (e) ";}
-                if (statusWest == true) {
-                    choices = choices + "west (w) ";}
-                if (statusNorth == true) {
-                    choices = choices + "north (n) ";}
-                if (statusSouth == true) {
-                    choices = choices + "south (s) ";}
-                System.out.println(choices);
+
                 if (player.pos.roomId == 6) {
                     player.status = false;}
                 
             }
+            String choices = "test";
+            String choices1 = "";
+            boolean testObj = statusEast;
+            
+            if (statusEast) {
+                choices1 = " east (e)";
+
+                choices = choices.concat(choices1);}
+            if (statusWest) {
+                choices = choices.concat(" west (w)");}
+            if (statusNorth) {
+                choices1 = " north (n)";
+                choices = choices.concat(" north (n)");}
+            if (statusSouth) {
+                choices = choices.concat(" south (s)");}
+            System.out.println(choices);
+            
+            //scanner for entering choice
+            Scanner scannerDir = new Scanner(System.in);
+            System.out.println("There are doors to the " + choices + ". Where do you want to go?");
+            String dir = scannerDir.nextLine();
+            System.out.println("You entered a new room." + dir);
         }  
     }
 }
