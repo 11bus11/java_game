@@ -5,12 +5,7 @@ package CatTressure;
 import java.util.ArrayList;
 
 public class PlayGame {
-    public void createRoom() {
-        DungeonRoom room1 = new DungeonRoom("1");
-        room1.roomDesc = "hfjdjd";
-
-        
-    }
+    
 
     public static void main(String[] args) {
         //SetupGame.initialize();
@@ -66,55 +61,69 @@ public class PlayGame {
 
         int place = 0;
         //add while loop that runs as long as the player is alive
-        for (int counter = 0; counter <= 5; counter++) {
-            System.out.println(counter);
-            System.out.println(place + " place");
-            DungeonRoom holderRoom = arrayRooms.get(place);
-            
-            if (player.getPos() == holderRoom.getRoom()) { 
-                System.out.println("yes " + player.pos.roomId);
-                place = 0;
+        while (player.status == true) {
+            for (int counter = 0; counter <= 5; counter++) {
+                System.out.println(counter);
+                System.out.println(place + " place");
+                DungeonRoom holderRoom = arrayRooms.get(place);
                 
-                for (int counter1 = 0; counter1 <= 4; counter1++) {
-                    DungeonDoor holderDoor = arrayDoors.get(place);
-                    //testing all doors connected to the players current position
-                    if (holderRoom.getConn1() == null) {
-                        System.out.println("null door");
-                    } else
-                    if (holderDoor.getDoor() == holderRoom.getConn1().doorId) {
-                        //check which direction door is pointing
-                        statusNorth = true;
-                        //north
-                        System.out.println("north " + holderRoom.getConn1().doorId);
+                if (player.getPos() == holderRoom.getRoom()) { 
+                    System.out.println("yes " + player.pos.roomId);
+                    place = 0;
+                    
+                    for (int counter1 = 0; counter1 <= 4; counter1++) {
+                        DungeonDoor holderDoor = arrayDoors.get(place);
+                        //testing all doors connected to the players current position
+                        if (holderRoom.getConn1() == null) {
+                            System.out.println("null door");
+                        } else
+                        if (holderDoor.getDoor() == holderRoom.getConn1().doorId) {
+                            //check which direction door is pointing
+                            statusNorth = true;
+                            //north
+                            System.out.println("north " + holderRoom.getConn1().doorId);
+                        }
+                        if (holderRoom.getConn2() == null) {
+                            System.out.println("null door");
+                        } else
+                        if (holderDoor.getDoor() == holderRoom.getConn2().doorId) {
+                            System.out.println("yes  door " + holderRoom.getConn2().doorId);
+                            //west or east (odd or even)
+                            if (player.pos.roomId % 2 == 0) {
+                                //even
+                                statusWest = true;
+                            } else 
+                            statusEast = true;
+                        }
+                        if (holderRoom.getConn3() == null) {
+                            System.out.println("null door");
+                        } else
+                        if (holderDoor.getDoor() == holderRoom.getConn3().doorId) {
+                            statusSouth = true;
+                            System.out.println("yes door " + holderRoom.getConn3().doorId);
+                        }
+                        place++;
                     }
-                    if (holderRoom.getConn2() == null) {
-                        System.out.println("null door");
-                    } else
-                    if (holderDoor.getDoor() == holderRoom.getConn2().doorId) {
-                        System.out.println("yes  door " + holderRoom.getConn2().doorId);
-                        //west or east (odd or even)
-                        if (player.pos.roomId % 2 == 0) {
-                            //even
-                            statusWest = true;
-                        } else 
-                        statusEast = true;
-                    }
-                    if (holderRoom.getConn3() == null) {
-                        System.out.println("null door");
-                    } else
-                    if (holderDoor.getDoor() == holderRoom.getConn3().doorId) {
-                        statusSouth = true;
-                        System.out.println("yes door " + holderRoom.getConn3().doorId);
-                    }
+                } else { // Correct else block
+                    System.out.println("no");
                     place++;
                 }
-            } else { // Correct else block
-                System.out.println("no");
-                place++;
+                
+                String choices = "";
+                if (statusEast == true) {
+                    choices = choices + "east (e) ";}
+                if (statusWest == true) {
+                    choices = choices + "west (w) ";}
+                if (statusNorth == true) {
+                    choices = choices + "north (n) ";}
+                if (statusSouth == true) {
+                    choices = choices + "south (s) ";}
+                System.out.println(choices);
+                if (player.pos.roomId == 6) {
+                    player.status = false;}
+                
             }
-            System.out.println("west: " + statusEast + ", north: " + statusNorth + ", south: " + statusSouth + ", west: " + statusWest);
-        }
-        
+        }  
     }
 }
 
