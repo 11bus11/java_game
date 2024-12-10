@@ -79,9 +79,7 @@ public class PlayGame {
                             System.out.println("null door");
                         } else
                         if (holderDoor.getDoor() == holderRoom.getConn1().doorId) {
-                            //check which direction door is pointing
                             statusNorth = true;
-                            //north
                             System.out.println("north " + holderRoom.getConn1().doorId);
                         }
                         if (holderRoom.getConn2() == null) {
@@ -115,17 +113,11 @@ public class PlayGame {
                 
             }
             String choices = "test";
-            String choices1 = "";
-            boolean testObj = statusEast;
-            
             if (statusEast) {
-                choices1 = " east (e)";
-
-                choices = choices.concat(choices1);}
+                choices = choices.concat(" east (e)");}
             if (statusWest) {
                 choices = choices.concat(" west (w)");}
             if (statusNorth) {
-                choices1 = " north (n)";
                 choices = choices.concat(" north (n)");}
             if (statusSouth) {
                 choices = choices.concat(" south (s)");}
@@ -135,6 +127,10 @@ public class PlayGame {
             Scanner scannerDir = new Scanner(System.in);
             System.out.println("There are doors to the " + choices + ". Where do you want to go?");
             String dir = scannerDir.nextLine();
+            if (dir.equals("e")) {
+                //calculate next room
+            }
+
             System.out.println("You entered a new room." + dir);
         }  
     }
