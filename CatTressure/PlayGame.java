@@ -44,7 +44,7 @@ public class PlayGame {
         
         
 
-        Player player = new Player(room6, true);
+        Player player = new Player(room3, true);
         System.out.println(player.pos);
 
 
@@ -63,6 +63,7 @@ public class PlayGame {
         int place = 0;
         //add while loop that runs as long as the player is alive
         while (player.status == true) {
+            place = 0;
             for (int counter = 0; counter <= 5; counter++) {
                 System.out.println(counter);
                 System.out.println(place + " place");
@@ -103,15 +104,22 @@ public class PlayGame {
                         }
                         place++;
                     }
+
                 } else { // Correct else block
                     System.out.println("no");
-                    place++;
+                    if (place < 5) {
+                        place++;    
+                    }
                 }
+                
 
-                if (player.pos.roomId == 6) {
+                if (player.pos.roomId == 2) {
                     player.status = false;}
+                 
                 
             }
+            place = 0;
+            System.out.println(statusEast + " " + statusWest + " " + statusNorth + " " + statusSouth);
             String choices = "test";
             if (statusEast) {
                 choices = choices.concat(" east (e)");}
@@ -127,11 +135,13 @@ public class PlayGame {
             Scanner scannerDir = new Scanner(System.in);
             System.out.println("There are doors to the " + choices + ". Where do you want to go?");
             String dir = scannerDir.nextLine();
-            if (dir.equals("e")) {
+            if ((dir.equals("e")) && (statusEast == true)) {
                 //calculate next room
+                //current array index + 1?
             }
 
-            System.out.println("You entered a new room." + dir);
+            System.out.println("You entered a new room." + dir + player.pos.roomId);
+            dir = "";
         }  
     }
 }
