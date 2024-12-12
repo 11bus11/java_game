@@ -6,12 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayGame {
-    
-
     public static void main(String[] args) {
-        //SetupGame.initialize();
-        //PlayGame.createRoom();
-
         //create doors
         DungeonDoor door1 = new DungeonDoor(1, false);
         DungeonDoor door2 = new DungeonDoor(2, true);
@@ -25,14 +20,13 @@ public class PlayGame {
         arrayDoors.add(door4);
         arrayDoors.add(door5);
 
-        //Create rooms
+        //create rooms
         DungeonRoom room1 = new DungeonRoom(1, "thens", null, null, door1);
         DungeonRoom room2 = new DungeonRoom(2, "thens", null, null, door2);
         DungeonRoom room3 = new DungeonRoom(3, "thens", door1, door3, door4);
         DungeonRoom room4 = new DungeonRoom(4, "thens", door2, door3, door4);
         DungeonRoom room5 = new DungeonRoom(5, "thens", door4, null, null);
         DungeonRoom room6 = new DungeonRoom(6, "thens", door5, null, null);
-
         ArrayList <DungeonRoom> arrayRooms = new ArrayList<DungeonRoom>();
         arrayRooms.add(room1);
         arrayRooms.add(room2);
@@ -40,6 +34,16 @@ public class PlayGame {
         arrayRooms.add(room4);
         arrayRooms.add(room5);
         arrayRooms.add(room6);
+
+        
+        
+        //PlayGame.createRoom();
+
+        //create doors
+        
+
+        //Create rooms
+        
         
         
         
@@ -64,15 +68,11 @@ public class PlayGame {
         //add while loop that runs as long as the player is alive
         while (player.status == true) {
             place = 0;
-            for (int counter = 0; counter <= 5; counter++) {
-                System.out.println(counter);
-                System.out.println(place + " place");
-                DungeonRoom holderRoom = arrayRooms.get(place);
-                
-                if (player.getPos() == holderRoom.getRoom()) { 
+                DungeonRoom holderRoom = player.pos;
+ 
                     System.out.println("yes " + player.pos.roomId);
                     place = 0;
-                    
+                    //check what directions the doors are in and how many there are
                     for (int counter1 = 0; counter1 <= 4; counter1++) {
                         DungeonDoor holderDoor = arrayDoors.get(place);
                         //testing all doors connected to the players current position
@@ -104,20 +104,12 @@ public class PlayGame {
                         }
                         place++;
                     }
-
-                } else { // Correct else block
-                    System.out.println("no");
-                    if (place < 5) {
-                        place++;    
-                    }
-                }
-                
-
                 if (player.pos.roomId == 2) {
-                    player.status = false;}
+                    player.status = false;
+                }
                  
                 
-            }
+            
             place = 0;
             System.out.println(statusEast + " " + statusWest + " " + statusNorth + " " + statusSouth);
             String choices = "test";
