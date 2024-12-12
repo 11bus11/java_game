@@ -1,6 +1,6 @@
 package CatTressure;
 
-//import java.util.ArrayList;
+
 
 public class DungeonRoom {
     int roomId; 
@@ -16,7 +16,6 @@ public class DungeonRoom {
         this.conn1 = conn1;
         this.conn2 = conn2;
         this.conn3 = conn3;
-        //System.out.println("Constructor Called - Room");
     }
 
 

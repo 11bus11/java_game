@@ -52,17 +52,20 @@ public class PlayGame {
         System.out.println(player.pos);
 
 
-        //Controlls - variables
-        String west = "w";
-        boolean statusWest = false;
-        String east = "e";
-        boolean statusEast = false;
-        String north = "n";
-        boolean statusNorth = false;
-        String south = "s";
-        boolean statusSouth = false;
+        //Creating directions
+        Direction west = new Direction("west", "w", false, null);
+        Direction east = new Direction("east","e", false, null);
+        Direction north = new Direction("north", "n", false, null);
+        Direction south = new Direction("south", "s", false, null);
+        ArrayList <Direction> arrayDirs = new ArrayList<Direction>();
+        arrayDirs.add(west);
+        arrayDirs.add(east);
+        arrayDirs.add(north);
+        arrayDirs.add(south);
+        
+        
 
-        //FOR-LOOP going thru the array and checking if connroom is there
+        
 
         int place = 0;
         //add while loop that runs as long as the player is alive
@@ -80,7 +83,7 @@ public class PlayGame {
                             System.out.println("null door");
                         } else
                         if (holderDoor.getDoor() == holderRoom.getConn1().doorId) {
-                            statusNorth = true;
+                            north.status = true;
                             System.out.println("north " + holderRoom.getConn1().doorId);
                         }
                         if (holderRoom.getConn2() == null) {
@@ -91,15 +94,16 @@ public class PlayGame {
                             //west or east (odd or even)
                             if (player.pos.roomId % 2 == 0) {
                                 //even
-                                statusWest = true;
+                                west.status = true;
+                                
                             } else 
-                            statusEast = true;
+                            east.status = true;
                         }
                         if (holderRoom.getConn3() == null) {
                             System.out.println("null door");
                         } else
                         if (holderDoor.getDoor() == holderRoom.getConn3().doorId) {
-                            statusSouth = true;
+                            south.status = true;
                             System.out.println("yes door " + holderRoom.getConn3().doorId);
                         }
                         place++;
@@ -111,23 +115,71 @@ public class PlayGame {
                 
             
             place = 0;
-            System.out.println(statusEast + " " + statusWest + " " + statusNorth + " " + statusSouth);
-            String choices = "test";
-            if (statusEast) {
-                choices = choices.concat(" east (e)");}
-            if (statusWest) {
-                choices = choices.concat(" west (w)");}
-            if (statusNorth) {
-                choices = choices.concat(" north (n)");}
-            if (statusSouth) {
-                choices = choices.concat(" south (s)");}
+            System.out.println(east.status + " " + west.status + " " + north.status + " " + south.status);
+            String choices = "";
+            Direction holderDir;
+            for (int counter3 = 0; counter3 <= 3; counter3++) {
+                holderDir = arrayDirs.get(place);
+                if (holderDir.status) {
+                    choices = choices.concat(" " + holderDir.dirName + " " + "(" +  holderDir.dirString + ")");
+                }
+                place++;
+            }
+            
             System.out.println(choices);
             
+            place = 0;
             //scanner for entering choice
             Scanner scannerDir = new Scanner(System.in);
-            System.out.println("There are doors to the " + choices + ". Where do you want to go?");
+            System.out.println("There are doors to the" + choices + ". Where do you want to go?");
             String dir = scannerDir.nextLine();
-            if ((dir.equals("e")) && (statusEast == true)) {
+            //move player to the correct room
+            int move = 0;
+            for (int counter4 = 0; counter4 <= 3; counter4++) {
+                holderDir = arrayDirs.get(place);
+                System.out.println("working for");
+                
+                
+                if ((dir == "e")) { //me - issue with it not going into the if-statement. 
+                                    // me - Comparison not working
+                //(holderDir.status == true)
+                switch(holderDir.dirString) {
+                case "e" :
+                    // Statements
+                    move = player.pos.roomId;
+                    System.out.println("moving 2");
+                    
+                
+                case "w" :
+                    // Statements
+                    move = player.pos.roomId - 2;
+                    
+                default : 
+                    // default Statement
+                }
+                    /*if ((holderDir.dirString).equals("e")) {
+                        move = player.pos.roomId;
+                        player.pos = arrayRooms.get(move);
+                        System.out.println(move);
+                    }
+                    if ((holderDir.dirString).equals("w")) {
+                        move = player.pos.roomId - 2;
+                        
+                    }
+                    if ((holderDir.dirString).equals("s")) {
+                        move = player.pos.roomId + 1;
+                    }
+                    if ((holderDir.dirString).equals("n")) {
+                        move = player.pos.roomId - 3;
+                    }
+                    if (move < 0) {
+                        move = 0;
+                    }*/
+                    player.pos = arrayRooms.get(move);
+                    place++;
+                }
+            }
+            if ((dir.equals("e")) && (east.status == true)) {
                 //calculate next room
                 //current array index + 1?
             }
