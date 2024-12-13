@@ -72,7 +72,7 @@ public class PlayGame {
         while (player.status == true) {
             place = 0;
                 DungeonRoom holderRoom;
-                holderRoom = player.pos
+                holderRoom = player.pos;
                 System.out.println(holderRoom.roomDesc);
                 
                     System.out.println("yes " + player.pos.roomId);
@@ -129,48 +129,50 @@ public class PlayGame {
             //move player to the correct room
 
             int move = 0;
-            Direction choiceMade = null;
+                Direction choiceMade = null;
                 holderDir = arrayDirs.get(place);
+           
                 switch(dir) {
                 case "e" :
                     // Statements
-                    move = player.pos.roomId;
                     choiceMade = east;
-                    break;
+                    if (east.status == true) {
+                        player.pos = arrayRooms.get(holderRoom.roomId);
+                        }
+
                 
                 case "w" :
                     // Statements
-                    move = player.pos.roomId - 2;
                     choiceMade = west;
-                    
-                case "s" :
-                    move = (holderRoom.roomId + 1);
-                    choiceMade = south;
-                    System.out.println("doing south 2");
-                    if (choiceMade.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId + 1);
+                    if (west.status == true) {
+                        player.pos = arrayRooms.get(holderRoom.roomId - 2);
                         }
+                    break;
+                case "s" :
+                    choiceMade = south;
+                    if (south.status == true) {
+                        System.out.println("doing south 2 " + arrayRooms.get(player.pos.roomId + 1).roomId);
+                        player.pos = arrayRooms.get(player.pos.roomId + 1);
+                        }
+                    break;
                 case "n" :
-                    move = player.pos.roomId - 3;
                     choiceMade = north;
+                    if (north.status == true) {
+                        player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                        }
+                        break;
                 default : 
                     // default Statement
                 }
-                System.out.println(move + " move " + (holderRoom.roomId + 1));
-                if (move >= 0) {
-                     
-                    if (choiceMade.status == true) {
-                    player.pos = arrayRooms.get(move);
-                    }
-                }
-                    
+
+                System.out.println(move + " move " + arrayRooms.get(4).roomId);
+                System.out.println("You entered a new room. " + player.pos.roomId);
                     
                 place++;
                 
             
             
-            System.out.println(dir);
-            System.out.println("You entered a new room. " + player.pos.roomId);
+            //System.out.println("You entered a new room. " + player.pos.roomId);
             dir = "";
         }  
     }
