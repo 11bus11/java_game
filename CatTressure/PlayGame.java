@@ -71,7 +71,8 @@ public class PlayGame {
         //add while loop that runs as long as the player is alive
         while (player.status == true) {
             place = 0;
-                DungeonRoom holderRoom = player.pos;
+                DungeonRoom holderRoom;
+                holderRoom = player.pos
                 System.out.println(holderRoom.roomDesc);
                 
                     System.out.println("yes " + player.pos.roomId);
@@ -145,6 +146,7 @@ public class PlayGame {
                 case "s" :
                     move = (holderRoom.roomId + 1);
                     choiceMade = south;
+                    System.out.println("doing south 2");
                     if (choiceMade.status == true) {
                         player.pos = arrayRooms.get(holderRoom.roomId + 1);
                         }
@@ -154,7 +156,7 @@ public class PlayGame {
                 default : 
                     // default Statement
                 }
-                System.out.println(move + " move " + holderRoom.roomId);
+                System.out.println(move + " move " + (holderRoom.roomId + 1));
                 if (move >= 0) {
                      
                     if (choiceMade.status == true) {
@@ -168,7 +170,7 @@ public class PlayGame {
             
             
             System.out.println(dir);
-            System.out.println("You entered a new room.");
+            System.out.println("You entered a new room. " + player.pos.roomId);
             dir = "";
         }  
     }
