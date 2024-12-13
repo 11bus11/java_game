@@ -35,22 +35,8 @@ public class PlayGame {
         arrayRooms.add(room5);
         arrayRooms.add(room6);
 
-        
-        
-        //PlayGame.createRoom();
-
-        //create doors
-        
-
-        //Create rooms
-        
-        
-        
-        
-
+        //Create player
         Player player = new Player(room3, true);
-        System.out.println(player.pos);
-
 
         //Creating directions
         Direction west = new Direction("west", "w", false, null);
@@ -63,116 +49,76 @@ public class PlayGame {
         arrayDirs.add(north);
         arrayDirs.add(south);
         
-        
-
-        
-
         int place = 0;
-        //add while loop that runs as long as the player is alive
+        //game-loop (runs while player is alive)
         while (player.status == true) {
+            DungeonRoom holderRoom;
+            holderRoom = player.pos;
+            //Printing out room description
+            System.out.println(holderRoom.roomDesc);
             place = 0;
-                DungeonRoom holderRoom;
-                holderRoom = player.pos;
-                System.out.println(holderRoom.roomDesc);
-                
-                    System.out.println("yes " + player.pos.roomId);
-                    place = 0;
-                    //check what directions the doors are in and how many there are
-                    east.status = false;
-                    west.status = false;
-                    south.status = false;
-                    north.status = false;
+            //check what directions the doors are in and how many there are
+            east.status = false;
+            west.status = false;
+            south.status = false;
+            north.status = false;
+            //testing all doors connected to the players current position
+            if (holderRoom.getConn1() != null) {
+                north.status = true;
+                }
+            if (holderRoom.getConn2() != null) {
+                //checking which side the door is on
+                if (player.pos.roomId % 2 == 0) {
+                    west.status = true;          
+                } else 
+                east.status = true;
+                }
+            if (holderRoom.getConn3() != null) {
+                south.status = true;
+                }
 
-                        //testing all doors connected to the players current position
-                        if (holderRoom.getConn1() != null) {
-                            north.status = true;
-                            System.out.println("doing north");
-                        }
-                        if (holderRoom.getConn2() != null) {
-                            //checking which side the door is on
-                            if (player.pos.roomId % 2 == 0) {
-                                west.status = true;
-                                
-                            } else 
-                            east.status = true;
-                        }
-                        if (holderRoom.getConn3() != null) {
-                            south.status = true;
-                            System.out.println("doing south");
-                        }
-
-                    
-                //if (player.pos.roomId == 2) {
-                //    player.status = false;
-                //}
-                 
-                
-                    System.out.println( north.status + " " + south.status);
-                    place = 0;
-                    String choices = "";
-                    Direction holderDir;
-                    for (int counter3 = 0; counter3 <= 3; counter3++) {
-                        holderDir = arrayDirs.get(place);
-                        if (holderDir.status) {
-                            choices = choices.concat(" " + holderDir.dirName + " " + "(" +  holderDir.dirString + ")");
-                        }
-                        place++;
-                    }
-            
-
-            System.out.println(choices);
             place = 0;
-            //scanner for entering choice
+            String choices = "";
+            Direction holderDir;
+            for (int counter3 = 0; counter3 <= 3; counter3++) {
+                holderDir = arrayDirs.get(place);
+                if (holderDir.status) {
+                    choices = choices.concat(" " + holderDir.dirName + " " + "(" +  holderDir.dirString + ")");
+                }
+                place++;
+            }
+            place = 0;
+            //getting the players choice
             Scanner scannerDir = new Scanner(System.in);
             System.out.println("There are doors to the" + choices + ". Where do you want to go?");
             String dir = scannerDir.nextLine();
             //move player to the correct room
-
-            int move = 0;
-                Direction choiceMade = null;
-                holderDir = arrayDirs.get(place);
-           
-                switch(dir) {
-                case "e" :
-                    // Statements
-                    choiceMade = east;
-                    if (east.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId);
-                        }
-
-                
-                case "w" :
-                    // Statements
-                    choiceMade = west;
-                    if (west.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId - 2);
-                        }
+            holderDir = arrayDirs.get(place);
+            switch(dir) {
+            case "e" :
+                if (east.status == true) {
+                    player.pos = arrayRooms.get(holderRoom.roomId);
+                    }
+            case "w" :
+                if (west.status == true) {
+                    player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                    }
+                break;
+            case "s" :
+                if (south.status == true) {
+                    player.pos = arrayRooms.get(player.pos.roomId + 1);
+                    }
+                break;
+            case "n" :
+                if (north.status == true) {
+                    player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                    }
                     break;
-                case "s" :
-                    choiceMade = south;
-                    if (south.status == true) {
-                        System.out.println("doing south 2 " + arrayRooms.get(player.pos.roomId + 1).roomId);
-                        player.pos = arrayRooms.get(player.pos.roomId + 1);
-                        }
-                    break;
-                case "n" :
-                    choiceMade = north;
-                    if (north.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId - 3);
-                        }
-                        break;
-                default : 
-                    // default Statement
-                }
-
-                System.out.println(move + " move " + arrayRooms.get(4).roomId);
-                System.out.println("You entered a new room. " + player.pos.roomId);
+            default : 
+            }
+            System.out.println("You entered a new room. " + player.pos.roomId);
                     
-                place++;
-                
-            
-            
-            //System.out.println("You entered a new room. " + player.pos.roomId);
+            place++;
             dir = "";
         }  
     }
