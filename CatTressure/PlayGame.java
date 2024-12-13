@@ -76,6 +76,10 @@ public class PlayGame {
                     System.out.println("yes " + player.pos.roomId);
                     place = 0;
                     //check what directions the doors are in and how many there are
+                    east.status = false;
+                    west.status = false;
+                    south.status = false;
+                    north.status = false;
                     for (int counter1 = 0; counter1 <= 4; counter1++) {
                         DungeonDoor holderDoor = arrayDoors.get(place);
                         //testing all doors connected to the players current position
@@ -135,27 +139,42 @@ public class PlayGame {
             String dir = scannerDir.nextLine();
             //move player to the correct room
             int move = 0;
-            for (int counter4 = 0; counter4 <= 3; counter4++) {
+            Direction choiceMade = null;
                 holderDir = arrayDirs.get(place);
                 System.out.println("working for");
-                
-                
-                if ((dir == "e")) { //me - issue with it not going into the if-statement. 
-                                    // me - Comparison not working
-                //(holderDir.status == true)
-                switch(holderDir.dirString) {
+                switch(dir) {
                 case "e" :
                     // Statements
                     move = player.pos.roomId;
-                    System.out.println("moving 2");
-                    
+                    choiceMade = east;
+                    System.out.println(player.pos.roomId + " moving 2");
+                    System.out.println(move);
+                    System.out.println(choiceMade);
+                    break;
                 
                 case "w" :
                     // Statements
                     move = player.pos.roomId - 2;
+                    choiceMade = west;
                     
+                case "s" :
+                    move = player.pos.roomId + 1;
+                    choiceMade = south;
+                case "n" :
+                    move = player.pos.roomId - 3;
+                    choiceMade = north;
                 default : 
                     // default Statement
+                }
+                
+                DungeonRoom newRoom = arrayRooms.get(move);
+                System.out.println("room thing" + newRoom);
+                if (move >= 0) {
+                     
+                    if (choiceMade.status == true) {
+                    player.pos = arrayRooms.get(move);
+                    System.out.println("doing it " + player.pos.roomId);
+                 }
                 }
                     /*if ((holderDir.dirString).equals("e")) {
                         move = player.pos.roomId;
@@ -175,10 +194,10 @@ public class PlayGame {
                     if (move < 0) {
                         move = 0;
                     }*/
-                    player.pos = arrayRooms.get(move);
-                    place++;
-                }
-            }
+                    
+                place++;
+                
+            
             if ((dir.equals("e")) && (east.status == true)) {
                 //calculate next room
                 //current array index + 1?
