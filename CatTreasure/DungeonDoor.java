@@ -1,4 +1,4 @@
-package CatTressure;
+package CatTreasure;
 
 public class DungeonDoor {
     int doorId;

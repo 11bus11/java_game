@@ -1,6 +1,4 @@
-package CatTressure;
-
-
+package CatTreasure;
 
 public class DungeonRoom {
     int roomId; 
@@ -18,8 +16,6 @@ public class DungeonRoom {
         this.conn3 = conn3;
     }
 
-
-
     public int getRoom() {
         return this.roomId;
     }
@@ -35,8 +31,4 @@ public class DungeonRoom {
     public DungeonDoor getConn3() {
         return this.conn3;
     }
-
-
-        
-
 }

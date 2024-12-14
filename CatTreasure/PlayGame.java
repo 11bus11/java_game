@@ -1,4 +1,4 @@
-package CatTressure;
+package CatTreasure;
 //01:02:00 2024-11-12
 
 
@@ -39,10 +39,10 @@ public class PlayGame {
         Player player = new Player(room6, true);
 
         //Creating directions
-        Direction west = new Direction("west", "w", false, null);
-        Direction east = new Direction("east","e", false, null);
-        Direction north = new Direction("north", "n", false, null);
-        Direction south = new Direction("south", "s", false, null);
+        Direction west = new Direction("west", "w", false);
+        Direction east = new Direction("east","e", false);
+        Direction north = new Direction("north", "n", false);
+        Direction south = new Direction("south", "s", false);
         ArrayList <Direction> arrayDirs = new ArrayList<Direction>();
         arrayDirs.add(west);
         arrayDirs.add(east);

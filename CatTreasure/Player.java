@@ -1,4 +1,4 @@
-package CatTressure;
+package CatTreasure;
 
 public class Player {
     DungeonRoom pos;
