@@ -1,4 +1,4 @@
-# Cat Tressure
+# Cat Treasure
 *By: Erik Vodopivec Forsman*
 
 ## The classes
