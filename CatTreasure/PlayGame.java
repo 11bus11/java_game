@@ -49,6 +49,8 @@ public class PlayGame {
         arrayDirs.add(north);
         arrayDirs.add(south);
         
+        // do narritive, do battle (create methods)
+        
         int place = 0;
         //game-loop (runs while player is alive)
         while (player.status == true) {
