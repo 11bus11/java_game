@@ -1,20 +1,20 @@
 package CatTreasure;
 
 public class Mob {
-    int mobId;
+    String mobName;
     boolean status;
     int health;
     int damage;
 
-    public Mob(int mobId, boolean status, int health, int damage) {
-        this.mobId = mobId;
+    public Mob(String mobName, boolean status, int health, int damage) {
+        this.mobName = mobName;
         this.status = status;
         this.health = health;
         this.damage = damage;
     }
 
-    public int getMobId() {
-        return this.mobId;
+    public String getMobName() {
+        return this.mobName;
     }
 
     public boolean getStatus() {

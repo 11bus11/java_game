@@ -36,7 +36,7 @@ public class PlayGame {
         arrayRooms.add(room6);
 
         //Create player
-        Player player = new Player(room6, true);
+        Player player = new Player(room6, true, 10);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
@@ -48,9 +48,7 @@ public class PlayGame {
         arrayDirs.add(east);
         arrayDirs.add(north);
         arrayDirs.add(south);
-        
-        // do narritive, do battle (create methods)
-        
+
         int place = 0;
         //game-loop (runs while player is alive)
         while (player.status == true) {
@@ -124,6 +122,27 @@ public class PlayGame {
             place++;
             dir = "";
         }  
+        
+    }
+    //Show health statuses to player
+    public String showHealth(Player no1, Mob no2) {
+        int no1CurrHealth = no1.getHealth();
+        int no2CurrHealth = no2.getHealth();
+        String tellHealth;
+        tellHealth = ("Health:" + no1CurrHealth + " and " + no2.getMobName() + " health:" + no2CurrHealth);
+
+        return tellHealth;
+    }
+
+    // ME: do narritive, do battle (create methods)
+    public boolean doBattle(Player no1, Mob no2) {
+        //ME: while loop for attacking each other
+        System.out.println(showHealth(no1, no2));
+        if (no1.health <=0) {
+            no1.status = false;
+        }
+        //ME: return the result of the fight (if player is alive or not)
+        return no1.status;
     }
 }
 
