@@ -1,11 +1,11 @@
 package CatTreasure;
 
-public class Item {
-    String itemName;
+public class Treat {
+    String treatName;
     boolean status;
 
-    public Item(String itemName, boolean status) {
-        this.itemName = itemName;
+    public Treat(String treatName, boolean status) {
+        this.treatName = treatName;
         this.status = status;
     }
 

@@ -7,6 +7,12 @@ import java.util.Scanner;
 
 public class PlayGame {
     public static void main(String[] args) {
+        //create mobs
+        
+        //create items
+        HealthTreat healthTreat = new HealthTreat("good treats", false, 5);
+        DamageTreat damageTreat = new DamageTreat("bad treats", false, 2);
+
         //create doors
         DungeonDoor door1 = new DungeonDoor(1, false);
         DungeonDoor door2 = new DungeonDoor(2, true);
@@ -36,7 +42,7 @@ public class PlayGame {
         arrayRooms.add(room6);
 
         //Create player
-        Player player = new Player(room6, true, 10);
+        Player player = new Player(room6, true, 20);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
