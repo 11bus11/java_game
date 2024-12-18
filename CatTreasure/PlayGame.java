@@ -15,6 +15,10 @@ public class PlayGame {
         HealthTreat healthTreat = new HealthTreat("good treats", false, 5);
         DamageTreat damageTreat = new DamageTreat("bad treats", false, 2);
 
+        //Inventory array
+        //ArrayList <Treat> arrayInv = new ArrayList<Treat>();
+        //arrayInv.add(damageTreat);
+        
         //create doors
         DungeonDoor door1 = new DungeonDoor(1, false);
         DungeonDoor door2 = new DungeonDoor(2, true);
