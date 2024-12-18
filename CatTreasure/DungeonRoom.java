@@ -6,14 +6,18 @@ public class DungeonRoom {
     DungeonDoor conn1;
     DungeonDoor conn2;
     DungeonDoor conn3;
+    Mob mob;
+    Treat treat;
 
     //constructor//
-    public DungeonRoom(int roomId, String roomDesc, DungeonDoor conn1, DungeonDoor conn2, DungeonDoor conn3) {
+    public DungeonRoom(int roomId, String roomDesc, DungeonDoor conn1, DungeonDoor conn2, DungeonDoor conn3, Mob mob, Treat treat) {
         this.roomId = roomId;
         this.roomDesc = roomDesc;
         this.conn1 = conn1;
         this.conn2 = conn2;
         this.conn3 = conn3;
+        this.mob = mob;
+        this.treat = treat;
     }
 
     public int getRoom() {
@@ -30,5 +34,13 @@ public class DungeonRoom {
 
     public DungeonDoor getConn3() {
         return this.conn3;
+    }
+
+    public Mob getMob() {
+        return this.mob;
+    }
+
+    public Mob getTreat() {
+        return this.mob;
     }
 }

@@ -22,4 +22,14 @@ public class Player {
     public int getHealth() {
         return this.health;
     }
+
+    public int damageHealth(int damage) {
+        this.health = this.health - damage; 
+        return this.health;
+    }
+
+    public int healingHealth(int healing) {
+        this.health = this.health + healing; 
+        return this.health;
+    }
 }
