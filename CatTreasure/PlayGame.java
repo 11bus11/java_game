@@ -76,81 +76,94 @@ public class PlayGame {
                 switch(holderRoom.mob.type) {
                     case "minion" :
                         //battle with the leaf
+                        int[] temp = doBattle(player, holderRoom.mob);
+                        player.health = temp[0];
+                        holderRoom.mob.health = temp[1];
+                        player.status = updateStatus(player.health);
+                        if (player.status) {
+                            System.out.println("you won");
+                            } else {
+                                System.out.println("you lost");
+                            }
                         break;
                     case "boss" :
-                        //battle with the leaf
+                        //battle with the vaccum (boss-battle)
                         break;
-                    }
                 }
-            //check what directions the doors are in and how many there are
-            east.status = false;
-            west.status = false;
-            south.status = false;
-            north.status = false;
-            //testing all doors connected to the players current position
-            if (holderRoom.getConn1() != null) {
-                north.status = true;
-                }
-            if (holderRoom.getConn2() != null) {
-                //checking which side the door is on
-                if (player.pos.roomId % 2 == 0) {
-                    west.status = true;          
-                } else 
-                east.status = true;
-                }
-            if (holderRoom.getConn3() != null) {
-                south.status = true;
-                }
+            }
 
-            place = 0;
-            String choices = "";
-            Direction holderDir;
-            //Creating information about the doors for the player
-            for (int counter3 = 0; counter3 <= 3; counter3++) {
-                holderDir = arrayDirs.get(place);
-                if (holderDir.status) {
-                    choices = choices.concat(" " + holderDir.dirName + " " + "(" +  holderDir.dirString + ")");
+            if (player.status) {
+                //check what directions the doors are in and how many there are
+                east.status = false;
+                west.status = false;
+                south.status = false;
+                north.status = false;
+                //testing all doors connected to the players current position
+                if (holderRoom.getConn1() != null) {
+                    north.status = true;
+                    }
+                if (holderRoom.getConn2() != null) {
+                    //checking which side the door is on
+                    if (player.pos.roomId % 2 == 0) {
+                        west.status = true;          
+                    } else 
+                    east.status = true;
+                    }
+                if (holderRoom.getConn3() != null) {
+                    south.status = true;
+                    }
+
+                place = 0;
+                String choices = "";
+                Direction holderDir;
+                //Creating information about the doors for the player
+                for (int counter3 = 0; counter3 <= 3; counter3++) {
+                    holderDir = arrayDirs.get(place);
+                    if (holderDir.status) {
+                        choices = choices.concat(" " + holderDir.dirName + " " + "(" +  holderDir.dirString + ")");
+                    }
+                    place++;
                 }
-                place++;
-            }
-            place = 0;
-            //getting the players choice
-            Scanner scannerDir = new Scanner(System.in);
-            System.out.println("There are doors to the" + choices + ". Where do you want to go?");
-            String dir = scannerDir.nextLine();
-            //move player to the correct room
-            holderDir = arrayDirs.get(place);
-            switch(dir) {
-            case "e" :
-                if (east.status == true) {
-                    player.pos = arrayRooms.get(holderRoom.roomId);
-                    }
-            case "w" :
-                if (west.status == true) {
-                    player.pos = arrayRooms.get(holderRoom.roomId - 2);
-                    }
-                break;
-            case "s" :
-                if (south.status == true) {
-                    player.pos = arrayRooms.get(player.pos.roomId + 1);
-                    }
-                break;
-            case "n" :
-                if (north.status == true) {
-                    player.pos = arrayRooms.get(holderRoom.roomId - 3);
-                    }
+                place = 0;
+                //getting the players choice
+                Scanner scannerDir = new Scanner(System.in);
+                System.out.println("There are doors to the" + choices + ". Where do you want to go?");
+                String dir = scannerDir.nextLine();
+                //move player to the correct room
+                holderDir = arrayDirs.get(place);
+                switch(dir) {
+                case "e" :
+                    if (east.status == true) {
+                        player.pos = arrayRooms.get(holderRoom.roomId);
+                        }
+                case "w" :
+                    if (west.status == true) {
+                        player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                        }
                     break;
-            default : 
+                case "s" :
+                    if (south.status == true) {
+                        player.pos = arrayRooms.get(player.pos.roomId + 1);
+                        }
+                    break;
+                case "n" :
+                    if (north.status == true) {
+                        player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                        }
+                        break;
+                default : 
+                }
+                System.out.println("You entered a new room. ");
+                        
+                place++;
+                dir = "";
             }
-            System.out.println("You entered a new room. ");
-                    
-            place++;
-            dir = "";
+            
         }  
         
     }
     //Show health statuses to player
-    public String showHealth(Player no1, Mob no2) {
+    public static String showHealth(Player no1, Mob no2) {
         int no1CurrHealth = no1.getHealth();
         int no2CurrHealth = no2.getHealth();
         String tellHealth;
@@ -160,14 +173,27 @@ public class PlayGame {
     }
 
     // ME: do narritive, do battle (create methods)
-    public boolean doBattle(Player no1, Mob no2) {
+    public static int[] doBattle(Player no1, Mob no2) {
         //ME: while loop for attacking each other
-        System.out.println(showHealth(no1, no2));
-        if (no1.health <=0) {
-            no1.status = false;
+        while (no1.status && no2.status) {
+            //ME: actual battle
+            System.out.println(showHealth(no1, no2));
+            
         }
+        int[] listHealth = {no1.health, no2.health};
+
         //ME: return the result of the fight (if player is alive or not)
-        return no1.status;
+        return listHealth;
+    }
+
+    public static boolean updateStatus(int health) {
+        boolean status;
+        if (health <=0) {
+            status = false;
+            } else {
+                status = true;
+            }
+        return status;
     }
 }
 
