@@ -8,17 +8,18 @@ import java.util.Scanner;
 public class PlayGame {
     public static void main(String[] args) {
         //create mobs
-        Leaves leave1 = new Leaves("Bob the leave", true, 5, 1);
-        Leaves leave2 = new Leaves("Bill the leave", true, 5, 1);
+        Vaccum vaccum = new Vaccum("boss", "The scary vaccum", true, 20, 1, false, 3);
+        Leaves leaf1 = new Leaves("minion", "Bob the leaf", true, 5, 1);
+        Leaves leaf2 = new Leaves("minion", "Bill the leaf", true, 5, 1);
         
         //create items
         HealthTreat healthTreat = new HealthTreat("good treats", false, 5);
         DamageTreat damageTreat = new DamageTreat("bad treats", false, 2);
 
         //Inventory array
-        //ArrayList <Treat> arrayInv = new ArrayList<Treat>();
-        //arrayInv.add(damageTreat);
-        
+        ArrayList <Treat> arrayInv = new ArrayList<Treat>();
+        arrayInv.add(damageTreat);
+
         //create doors
         DungeonDoor door1 = new DungeonDoor(1, false);
         DungeonDoor door2 = new DungeonDoor(2, true);
@@ -36,8 +37,8 @@ public class PlayGame {
         DungeonRoom room1 = new DungeonRoom(1, "The room is empty with a big bag of treats on the floor.", null, null, door1, null, healthTreat);
         DungeonRoom room2 = new DungeonRoom(2, "In the middle of the room is a monster; a vacuum cleaner.", null, null, door2, null, null);
         DungeonRoom room3 = new DungeonRoom(3, "The room is empty except for some toys.", door1, door3, door4, null, null);
-        DungeonRoom room4 = new DungeonRoom(4, "This room contains something that moves, but you dont know what it is.", door2, door3, door4, leave1, null);
-        DungeonRoom room5 = new DungeonRoom(5, "There is a key in the room, and some nice beds.", door4, null, null, leave2, null);
+        DungeonRoom room4 = new DungeonRoom(4, "This room contains something that moves, but you dont know what it is.", door2, door3, door4, leaf1, null);
+        DungeonRoom room5 = new DungeonRoom(5, "There is a key in the room, and some nice beds.", door4, null, null, leaf2, null);
         DungeonRoom room6 = new DungeonRoom(6, "This is the room you started in. Your favourite blanket is here.", door5, null, null, null, null);
         ArrayList <DungeonRoom> arrayRooms = new ArrayList<DungeonRoom>();
         arrayRooms.add(room1);
@@ -69,6 +70,18 @@ public class PlayGame {
             //Printing out room description
             System.out.println(holderRoom.roomDesc);
             place = 0;
+
+            //checking if the room contains a mob
+            if (holderRoom.mob != null) {
+                switch(holderRoom.mob.type) {
+                    case "minion" :
+                        //battle with the leaf
+                        break;
+                    case "boss" :
+                        //battle with the leaf
+                        break;
+                    }
+                }
             //check what directions the doors are in and how many there are
             east.status = false;
             west.status = false;
