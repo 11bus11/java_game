@@ -77,9 +77,9 @@ public class PlayGame {
             if (holderMob != null) {
                 //tell player about the mob
                 if (holderMob.type == "boss") {
-                    System.out.println("There is a scary thing here. It is " + holderRoom.mob.mobName);
+                    System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
                 } else {
-                    System.out.println("There is a very scary thing here. It is " + holderRoom.mob.mobName);
+                    System.out.println("There is a very scary thing here. It is " + holderMob.mobName + ".");
                 }
                     
                 //fight the mob
@@ -92,7 +92,7 @@ public class PlayGame {
                     } else {
                         System.out.println("you lost");
                     }
-                }
+                
             }
 
             if (player.status) {
@@ -170,18 +170,20 @@ public class PlayGame {
         int no1CurrHealth = no1.getHealth();
         int no2CurrHealth = no2.getHealth();
         String tellHealth;
-        tellHealth = ("Health:" + no1CurrHealth + " and " + no2.getMobName() + " health:" + no2CurrHealth);
-
+        tellHealth = ("Your health: " + no1CurrHealth + " ----- " + no2.getMobName() + "s health: " + no2CurrHealth);
         return tellHealth;
     }
 
     // ME: do narritive, do battle (create methods)
     public static int[] doBattle(Player no1, Mob no2) {
         //ME: while loop for attacking each other
-        while (no1.status && no2.status) {
+        boolean statusNo1 = true;
+        boolean statusNo2 = true;
+        while (statusNo1 && statusNo2) {
             //ME: actual battle
+            statusNo1 = updateStatus(no1.health);
+            statusNo2 = updateStatus(no2.health);
             System.out.println(showHealth(no1, no2));
-            
         }
         int[] listHealth = {no1.health, no2.health};
 
