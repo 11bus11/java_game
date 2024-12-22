@@ -49,7 +49,7 @@ public class PlayGame {
         arrayRooms.add(room6);
 
         //Create player
-        Player player = new Player(room6, true, 20);
+        Player player = new Player(room4, true, 20);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
@@ -62,33 +62,36 @@ public class PlayGame {
         arrayDirs.add(north);
         arrayDirs.add(south);
 
+        DungeonRoom holderRoom;
         int place = 0;
         //game-loop (runs while player is alive)
         while (player.status == true) {
-            DungeonRoom holderRoom;
             holderRoom = player.pos;
             //Printing out room description
             System.out.println(holderRoom.roomDesc);
             place = 0;
 
+            Mob holderMob;
+            holderMob = holderRoom.mob;
             //checking if the room contains a mob
-            if (holderRoom.mob != null) {
-                switch(holderRoom.mob.type) {
-                    case "minion" :
-                        //battle with the leaf
-                        int[] temp = doBattle(player, holderRoom.mob);
-                        player.health = temp[0];
-                        holderRoom.mob.health = temp[1];
-                        player.status = updateStatus(player.health);
-                        if (player.status) {
-                            System.out.println("you won");
-                            } else {
-                                System.out.println("you lost");
-                            }
-                        break;
-                    case "boss" :
-                        //battle with the vaccum (boss-battle)
-                        break;
+            if (holderMob != null) {
+                //tell player about the mob
+                if (holderMob.type == "boss") {
+                    System.out.println("There is a scary thing here. It is " + holderRoom.mob.mobName);
+                } else {
+                    System.out.println("There is a very scary thing here. It is " + holderRoom.mob.mobName);
+                }
+                    
+                //fight the mob
+                int[] temp = doBattle(player, holderMob);
+                player.health = temp[0];
+                holderMob.health = temp[1];
+                player.status = updateStatus(player.health);
+                if (player.status) {
+                    System.out.println("you won");
+                    } else {
+                        System.out.println("you lost");
+                    }
                 }
             }
 
