@@ -4,11 +4,12 @@ package CatTreasure;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class PlayGame {
     public static void main(String[] args) {
         //create mobs
-        Vaccum vaccum = new Vaccum("boss", "The scary vaccum", true, 20, 1, false, 3);
+        Vaccum vaccum = new Vaccum("boss", "The scary vaccum", true, 20, 1, false, 0, 3);
         Leaves leaf1 = new Leaves("minion", "Bob the leaf", true, 5, 1);
         Leaves leaf2 = new Leaves("minion", "Bill the leaf", true, 5, 1);
         
@@ -175,15 +176,35 @@ public class PlayGame {
     }
 
     // ME: do narritive, do battle (create methods)
-    public static int[] doBattle(Player no1, Mob no2) {
+    public static int[] doBossBattle(Player no1, Vaccum no2) {
         //ME: while loop for attacking each other
+        double missAttack = Math.random();
+
         boolean statusNo1 = true;
         boolean statusNo2 = true;
         while (statusNo1 && statusNo2) {
+            System.out.println(showHealth(no1, no2));
             //ME: actual battle
+            
+            //Mob attacks
+            if (checkSuperCharge(no2) == true) {
+                if (missAttack <= 0.2) {
+                    System.out.println(no2.mobName + " uses an extra strong attack but miss.");
+                } else {
+                    System.out.println(no2.mobName + " uses an extra strong attack and does " + no2.superDamage + " in damage.");
+                    no1.health = damageHealth(no2.superDamage, no1.health);
+                }
+            } else {
+                System.out.println(no2.mobName + " attacks you and does " + no2.damage + " in damage.");
+                no1.health = damageHealth(no2.damage, no1.health);
+            }
+
+            //Player attack
+                
+
+            //health and status
             statusNo1 = updateStatus(no1.health);
             statusNo2 = updateStatus(no2.health);
-            System.out.println(showHealth(no1, no2));
         }
         int[] listHealth = {no1.health, no2.health};
 
@@ -199,6 +220,23 @@ public class PlayGame {
                 status = true;
             }
         return status;
+    }
+
+    //check if super attack is charged
+    public static boolean checkSuperCharge(Vaccum boss) {
+        if (boss.superCharge >= 5) {
+            boss.superAttack = true;
+            boss.superCharge = 0;
+        } else {
+            boss.superCharge = boss.superCharge + 1;
+        }
+        return boss.superAttack;
+    }
+
+    //change health
+    public static int damageHealth(int damage, int health) {
+        health = health - damage; 
+        return health;
     }
 }
 
