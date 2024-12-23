@@ -50,7 +50,7 @@ public class PlayGame {
         arrayRooms.add(room6);
 
         //Create player
-        Player player = new Player(room4, true, 20);
+        Player player = new Player(room4, true, 20, 1);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
@@ -74,19 +74,23 @@ public class PlayGame {
 
             Mob holderMob;
             holderMob = holderRoom.mob;
+            int retreat = 0;
             //checking if the room contains a mob
             if (holderMob != null) {
                 //tell player about the mob
                 if (holderMob.type == "boss") {
                     System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
+                    int[] temp = doBossBattle(player, vaccum);
+                    player.health = temp[0];
+                    holderMob.health = temp[1];
+                    retreat = temp[2];
                 } else {
                     System.out.println("There is a very scary thing here. It is " + holderMob.mobName + ".");
-                }
+                    int[] temp = doMinionBattle(player, holderMob);
+                    player.health = temp[0];
+                    holderMob.health = temp[1];
                     
-                //fight the mob
-                int[] temp = doBattle(player, holderMob);
-                player.health = temp[0];
-                holderMob.health = temp[1];
+                }
                 player.status = updateStatus(player.health);
                 if (player.status) {
                     System.out.println("you won");
@@ -175,17 +179,51 @@ public class PlayGame {
         return tellHealth;
     }
 
+    public static int[] doMinionBattle(Player no1, Mob no2) {
+        double missAttack = 0.0;
+        boolean statusNo1 = true;
+        boolean statusNo2 = true;
+
+        while (statusNo1 && statusNo2) {
+            missAttack = Math.random();
+            System.out.println(showHealth(no1, no2));
+
+            //Mob attacks
+            if (missAttack <= 0.2) {
+                System.out.println(no2.mobName + " attacks you but miss.");
+            } else {
+                System.out.println(no2.mobName + " attacks you and does " + no2.damage + " in damage.");
+                no1.health = damageHealth(no2.damage, no1.health);
+            }
+            statusNo1 = updateStatus(no1.health);
+
+            missAttack = Math.random();
+            //Player attack
+            if (missAttack <= 0.1) {
+                System.out.println("You attack " + no2.mobName + " but miss.");
+            } else {
+                System.out.println("You attack " + no2.mobName + " and do " + no1.damage + " in damage.");
+                no1.health = damageHealth(no1.damage, no2.health);
+            }
+            statusNo2 = updateStatus(no2.health);
+        }
+
+        int[] listHealth = {no1.health, no2.health};
+        return listHealth;
+    }
+
     // ME: do narritive, do battle (create methods)
     public static int[] doBossBattle(Player no1, Vaccum no2) {
         //ME: while loop for attacking each other
-        double missAttack = Math.random();
-
+        double missAttack = 0.0;
         boolean statusNo1 = true;
         boolean statusNo2 = true;
+        int retreat = 0;
+
         while (statusNo1 && statusNo2) {
+            missAttack = Math.random();
             System.out.println(showHealth(no1, no2));
-            //ME: actual battle
-            
+
             //Mob attacks
             if (checkSuperCharge(no2) == true) {
                 if (missAttack <= 0.2) {
@@ -198,17 +236,25 @@ public class PlayGame {
                 System.out.println(no2.mobName + " attacks you and does " + no2.damage + " in damage.");
                 no1.health = damageHealth(no2.damage, no1.health);
             }
-
-            //Player attack
-                
-
-            //health and status
             statusNo1 = updateStatus(no1.health);
-            statusNo2 = updateStatus(no2.health);
-        }
-        int[] listHealth = {no1.health, no2.health};
 
-        //ME: return the result of the fight (if player is alive or not)
+            if (statusNo1 == true) {
+                //Player attack
+                if (chooseMove() == true) {
+                    missAttack = Math.random();
+                    if (missAttack <= 0.1) {
+                        System.out.println("You attack " + no2.mobName + " but miss.");
+                    } else {
+                        System.out.println("You attack " + no2.mobName + " and do " + no1.damage + " in damage.");
+                        no1.health = damageHealth(no1.damage, no2.health);
+                    }
+                    statusNo2 = updateStatus(no2.health);
+                } else {
+                    statusNo1 = false;
+                }
+            }
+        }
+        int[] listHealth = {no1.health, no2.health, retreat};
         return listHealth;
     }
 
@@ -237,6 +283,21 @@ public class PlayGame {
     public static int damageHealth(int damage, int health) {
         health = health - damage; 
         return health;
+    }
+
+    public static boolean chooseMove() {
+        Scanner scannerMove = new Scanner(System.in);
+        System.out.println("Do you want to attack (a) or retreat (r)");
+        String move = scannerMove.nextLine();
+        boolean attack = true;
+
+        if (move == "a") {
+            attack = true;
+        } if (move == "r") {
+            attack = false;
+        }
+
+        return attack;
     }
 }
 

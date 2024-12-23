@@ -4,11 +4,13 @@ public class Player {
     DungeonRoom pos;
     Boolean status;
     int health;
+    int damage;
 
-    public Player(DungeonRoom pos, Boolean status, int health) {
+    public Player(DungeonRoom pos, Boolean status, int health, int damage) {
         this.pos = pos;
         this.status = status;
         this.health = health;
+        this.damage = damage;
     }
 
     public int getPos() {
