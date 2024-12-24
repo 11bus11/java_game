@@ -36,7 +36,7 @@ public class PlayGame {
 
         //create rooms
         DungeonRoom room1 = new DungeonRoom(1, "The room is empty with a big bag of treats on the floor.", null, null, door1, null, healthTreat);
-        DungeonRoom room2 = new DungeonRoom(2, "In the middle of the room is a monster; a vacuum cleaner.", null, null, door2, null, null);
+        DungeonRoom room2 = new DungeonRoom(2, "In the middle of the room is a monster; a vacuum cleaner.", null, null, door2, vaccum, null);
         DungeonRoom room3 = new DungeonRoom(3, "The room is empty except for some toys.", door1, door3, door4, null, null);
         DungeonRoom room4 = new DungeonRoom(4, "This room contains something that moves, but you dont know what it is.", door2, door3, door4, leaf1, null);
         DungeonRoom room5 = new DungeonRoom(5, "There is a key in the room, and some nice beds.", door4, null, null, leaf2, null);
@@ -184,29 +184,34 @@ public class PlayGame {
         boolean statusNo1 = true;
         boolean statusNo2 = true;
 
-        while (statusNo1 && statusNo2) {
-            missAttack = Math.random();
-            System.out.println(showHealth(no1, no2));
+        System.out.println(showHealth(no1, no2));
+        if (chooseMove()) {
+            while (statusNo1 && statusNo2) {
+                missAttack = Math.random();
 
-            //Mob attacks
-            if (missAttack <= 0.2) {
-                System.out.println(no2.mobName + " attacks you but miss.");
-            } else {
-                System.out.println(no2.mobName + " attacks you and does " + no2.damage + " in damage.");
-                no1.health = damageHealth(no2.damage, no1.health);
-            }
-            statusNo1 = updateStatus(no1.health);
+                //Mob attacks
+                if (missAttack <= 0.2) {
+                    System.out.println(no2.mobName + " attacks you but miss.");
+                } else {
+                    System.out.println(no2.mobName + " attacks you and does " + no2.damage + " in damage.");
+                    no1.health = damageHealth(no2.damage, no1.health);
+                }
+                statusNo1 = updateStatus(no1.health);
+                System.out.println(showHealth(no1, no2));
 
-            missAttack = Math.random();
-            //Player attack
-            if (missAttack <= 0.1) {
-                System.out.println("You attack " + no2.mobName + " but miss.");
-            } else {
-                System.out.println("You attack " + no2.mobName + " and do " + no1.damage + " in damage.");
-                no1.health = damageHealth(no1.damage, no2.health);
+                missAttack = Math.random();
+                //Player attack
+                if (missAttack <= 0.1) {
+                    System.out.println("You attack " + no2.mobName + " but miss.");
+                } else {
+                    System.out.println("You attack " + no2.mobName + " and do " + no1.damage + " in damage.");
+                    no2.health = damageHealth(no1.damage, no2.health);
+                }
+                statusNo2 = updateStatus(no2.health);
+                System.out.println(showHealth(no1, no2));
             }
-            statusNo2 = updateStatus(no2.health);
         }
+        
 
         int[] listHealth = {no1.health, no2.health};
         return listHealth;
@@ -221,10 +226,11 @@ public class PlayGame {
         int retreat = 0;
 
         while (statusNo1 && statusNo2) {
+            System.out.println("loop time");
             missAttack = Math.random();
-            System.out.println(showHealth(no1, no2));
 
             //Mob attacks
+            System.out.println(showHealth(no1, no2));
             if (checkSuperCharge(no2) == true) {
                 if (missAttack <= 0.2) {
                     System.out.println(no2.mobName + " uses an extra strong attack but miss.");
@@ -239,6 +245,7 @@ public class PlayGame {
             statusNo1 = updateStatus(no1.health);
 
             if (statusNo1 == true) {
+                System.out.println(showHealth(no1, no2));
                 //Player attack
                 if (chooseMove() == true) {
                     missAttack = Math.random();
@@ -246,7 +253,7 @@ public class PlayGame {
                         System.out.println("You attack " + no2.mobName + " but miss.");
                     } else {
                         System.out.println("You attack " + no2.mobName + " and do " + no1.damage + " in damage.");
-                        no1.health = damageHealth(no1.damage, no2.health);
+                        no2.health = no2.health - no1.damage;
                     }
                     statusNo2 = updateStatus(no2.health);
                 } else {
