@@ -1,14 +1,14 @@
 package CatTreasure;
 
 public class Mob {
-    String type;
+    boolean boss;
     String mobName;
     boolean status;
     int health;
     int damage;
 
-    public Mob(String type, String mobName, boolean status, int health, int damage) {
-
+    public Mob(boolean boss, String mobName, boolean status, int health, int damage) {
+        this.boss = boss;
         this.mobName = mobName;
         this.status = status;
         this.health = health;
