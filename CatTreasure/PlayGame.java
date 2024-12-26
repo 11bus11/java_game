@@ -50,7 +50,7 @@ public class PlayGame {
         arrayRooms.add(room6);
 
         //Create player
-        Player player = new Player(room4, true, 20, 1);
+        Player player = new Player(room1, true, 20, 1);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
@@ -78,8 +78,21 @@ public class PlayGame {
             System.out.println(holderRoom.roomDesc);
 
             //checking if the room contains a treat
+            //asking if player wants to pick it up
             if (holderTreat != null) {
-
+                Scanner scannerPickup = new Scanner(System.in);
+                System.out.println("There is a " + holderTreat.treatName + " in this room. To you want to pick it up? Yes (y) or no (n)?");
+                String pickup = scannerPickup.nextLine();
+                switch(pickup) {
+                    case "y" :
+                        holderTreat.status = true;
+                        holderRoom.treat = null;
+                        System.out.println("You picked up the treat. It is now in your inventory and can be used during fights.");
+                        break;
+                    case "n" :
+                        System.out.println("The treat will still be here if you change your mind.");
+                        break;
+                }
             }
 
             //checking if the room contains a mob and starts the fight
@@ -127,6 +140,8 @@ public class PlayGame {
             }
 
             if (player.status) {
+                //ME: key stuffs
+
                 //check what directions the doors are in and how many there are
                 east.status = false;
                 west.status = false;
@@ -322,7 +337,7 @@ public class PlayGame {
         String inventory = "";
         for (int counter = 0; counter <= 1; counter++)
         if (treats[counter].status) {
-            inventory = inventory.concat(treats[counter].treatName + " (" + treats[counter].treatString + ")");
+            inventory = inventory.concat(treats[counter].treatName + " (" + treats[counter].treatString + ") ");
         }
         return inventory;
     }
