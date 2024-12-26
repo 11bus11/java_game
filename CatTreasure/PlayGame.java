@@ -14,8 +14,8 @@ public class PlayGame {
         Leaves leaf2 = new Leaves(false, "Bill the leaf", true, 5, 1);
         
         //create items
-        HealthTreat healthTreat = new HealthTreat("good treats", false, 5);
-        DamageTreat damageTreat = new DamageTreat("bad treats", true, 5);
+        HealthTreat healthTreat = new HealthTreat("good treats", "g", false, 5);
+        DamageTreat damageTreat = new DamageTreat("bad treats", "b", true, 5);
 
         //Inventory array
         ArrayList <Treat> arrayInv = new ArrayList<Treat>();
@@ -89,8 +89,24 @@ public class PlayGame {
                 System.out.println(showHealth(player, holderMob));
                 System.out.println("Your inventory: " + stringInventory);
                 if (chooseMove()) {
-                    //ME: add option to use inventory stuff
-
+                    //option to use inventory stuff
+                    if (healthTreat.status || damageTreat.status) {
+                        Scanner scannerInv = new Scanner(System.in);
+                        System.out.println("Do you want to use an item before the fight? You can use " + stringInventory + ".");
+                        String inv = scannerInv.nextLine();
+                        switch(inv) {
+                            case "g" :
+                                healthTreat.status = false;
+                                player.health = player.health + healthTreat.healing;
+                                System.out.println(showHealth(player, holderMob));
+                                break;
+                            case "b" :
+                                damageTreat.status = false;
+                                holderMob.health = holderMob.health + damageTreat.damage;
+                                System.out.println(showHealth(player, holderMob));
+                                break;
+                        }
+                    }
                     //tell player about the mob
                     if (holderMob.boss) {
                         int[] temp = doBossBattle(player, vaccum);
@@ -306,7 +322,7 @@ public class PlayGame {
         String inventory = "";
         for (int counter = 0; counter <= 1; counter++)
         if (treats[counter].status) {
-            inventory = inventory.concat(treats[counter].treatName + " ");
+            inventory = inventory.concat(treats[counter].treatName + " (" + treats[counter].treatString + ")");
         }
         return inventory;
     }
