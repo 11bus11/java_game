@@ -90,16 +90,13 @@ public class PlayGame {
                         int[] temp = doMinionBattle(player, holderMob);
                         player.health = temp[0];
                         holderMob.health = temp[1];
-                        
                     }
                     player.status = updateStatus(player.health);
                     if (player.status) {
                         System.out.println("you won");
-                        } else {
-                            System.out.println("you lost");
-                        }
-                
-            
+                    } else {
+                        System.out.println("you lost");
+                    }
                 }
             }
 
@@ -270,17 +267,6 @@ public class PlayGame {
                 status = true;
             }
         return status;
-    }
-
-    //check if super attack is charged
-    public static boolean checkSuperCharge(Vaccum boss) {
-        if (boss.superCharge >= 5) {
-            boss.superAttack = true;
-            boss.superCharge = 0;
-        } else {
-            boss.superCharge = boss.superCharge + 1;
-        }
-        return boss.superAttack;
     }
 
     //change health
