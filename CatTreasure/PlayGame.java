@@ -15,7 +15,7 @@ public class PlayGame {
         
         //create items
         HealthTreat healthTreat = new HealthTreat("good treats", false, 5);
-        DamageTreat damageTreat = new DamageTreat("bad treats", false, 5);
+        DamageTreat damageTreat = new DamageTreat("bad treats", true, 5);
 
         //Inventory array
         ArrayList <Treat> arrayInv = new ArrayList<Treat>();
@@ -68,17 +68,28 @@ public class PlayGame {
         //game-loop (runs while player is alive)
         while (player.status == true) {
             holderRoom = player.pos;
-            //Printing out room description
-            System.out.println(holderRoom.roomDesc);
             place = 0;
-
+            Treat holderTreat;
+            holderTreat = holderRoom.treat;
             Mob holderMob;
             holderMob = holderRoom.mob;
-            System.out.println(showHealth(player, holderMob));
+
+            //Printing out room description
+            System.out.println(holderRoom.roomDesc);
+
+            //checking if the room contains a treat
+            if (holderTreat != null) {
+
+            }
 
             //checking if the room contains a mob and starts the fight
-            if (chooseMove()) {
-                if (holderMob != null) {
+            if (holderMob != null) {
+                String stringInventory = showInventory(healthTreat, damageTreat);
+                System.out.println(showHealth(player, holderMob));
+                System.out.println("Your inventory: " + stringInventory);
+                if (chooseMove()) {
+                    //ME: add option to use inventory stuff
+
                     //tell player about the mob
                     if (holderMob.boss) {
                         System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
@@ -289,6 +300,16 @@ public class PlayGame {
         }
         move = "";
         return attack;
+    }
+
+    public static String showInventory(Treat treat1, Treat treat2) {
+        Treat[] treats = {treat1, treat2};
+        String inventory = "";
+        for (int counter = 0; counter <= 1; counter++)
+        if (treats[counter].status) {
+            inventory = inventory.concat(treats[counter].treatName + " ");
+        }
+        return inventory;
     }
 }
 
