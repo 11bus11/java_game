@@ -85,6 +85,7 @@ public class PlayGame {
             //checking if the room contains a mob and starts the fight
             if (holderMob != null) {
                 String stringInventory = showInventory(healthTreat, damageTreat);
+                System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
                 System.out.println(showHealth(player, holderMob));
                 System.out.println("Your inventory: " + stringInventory);
                 if (chooseMove()) {
@@ -92,12 +93,10 @@ public class PlayGame {
 
                     //tell player about the mob
                     if (holderMob.boss) {
-                        System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
                         int[] temp = doBossBattle(player, vaccum);
                         player.health = temp[0];
                         holderMob.health = temp[1];
                     } else {
-                        System.out.println("There is a very scary thing here. It is " + holderMob.mobName + ".");
                         int[] temp = doMinionBattle(player, holderMob);
                         player.health = temp[0];
                         holderMob.health = temp[1];
