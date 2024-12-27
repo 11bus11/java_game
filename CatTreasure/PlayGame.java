@@ -18,8 +18,10 @@ public class PlayGame {
         DamageTreat damageTreat = new DamageTreat("bad treats", "b", true, 5);
 
         //Inventory array
-        ArrayList <Treat> arrayInv = new ArrayList<Treat>();
-        arrayInv.add(damageTreat);
+        //ArrayList <Treat> arrayInv = new ArrayList<Treat>();
+        //arrayInv.add(damageTreat);
+
+        
 
         //create doors
         DungeonDoor door1 = new DungeonDoor(1, false);
@@ -48,6 +50,9 @@ public class PlayGame {
         arrayRooms.add(room4);
         arrayRooms.add(room5);
         arrayRooms.add(room6);
+        
+        //create key
+        Key key = new Key("boss-key", false, false, room5);
 
         //Create player
         Player player = new Player(room1, true, 20, 1);
@@ -141,6 +146,21 @@ public class PlayGame {
 
             if (player.status) {
                 //ME: key stuffs
+                if (key.keyPos == holderRoom) {
+                    Scanner scannerKey = new Scanner(System.in);
+                    System.out.println("You can pick up the key. Do you want to? Yes (y) or no (n)?");
+                    String keyItem = scannerKey.nextLine();
+
+                    switch(keyItem) {
+                        case "y" :
+                            key.status = true;
+                            System.out.println("You picked up the key. This can be used to open locked doors.");
+                            break;
+                        case "n" :
+                            System.out.println("The key will still be here if you change your mind.");
+                            break;
+                    }
+                }
 
                 //check what directions the doors are in and how many there are
                 east.status = false;
@@ -148,19 +168,33 @@ public class PlayGame {
                 south.status = false;
                 north.status = false;
                 //testing all doors connected to the players current position
+                Direction lockedDoor = null;
                 if (holderRoom.getConn1() != null) {
                     north.status = true;
+                    if (checkLock(holderRoom.getConn1())) {
+                        lockedDoor = north;
                     }
+                }
                 if (holderRoom.getConn2() != null) {
                     //checking which side the door is on
                     if (player.pos.roomId % 2 == 0) {
-                        west.status = true;          
-                    } else 
-                    east.status = true;
+                        west.status = true;
+                        if (checkLock(holderRoom.getConn1())) {
+                            lockedDoor = west;
+                        }          
+                    } else {
+                        east.status = true;
+                        if (checkLock(holderRoom.getConn1())) {
+                            lockedDoor = east;
+                        }
                     }
+                }
                 if (holderRoom.getConn3() != null) {
                     south.status = true;
+                    if (checkLock(holderRoom.getConn1())) {
+                        lockedDoor = south;
                     }
+                }
 
                 place = 0;
                 String choices = "";
@@ -183,23 +217,50 @@ public class PlayGame {
                 switch(dir) {
                 case "e" :
                     if (east.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId);
-                        }
+                        if (lockedDoor == east) {
+                            if (useKey(key.status)) {
+                                player.pos = arrayRooms.get(holderRoom.roomId);
+                            }
+                        } else {
+                            player.pos = arrayRooms.get(holderRoom.roomId);
+                        } 
+                    }
                 case "w" :
                     if (west.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                        if (lockedDoor == east) {
+                            if (useKey(key.status)) {
+                                player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                            }
+                        } else {
+                            player.pos = arrayRooms.get(holderRoom.roomId - 2);
                         }
+                        
+                    }
                     break;
                 case "s" :
                     if (south.status == true) {
-                        player.pos = arrayRooms.get(player.pos.roomId + 1);
+                        if (lockedDoor == east) {
+                            if (useKey(key.status)) {
+                                player.pos = arrayRooms.get(player.pos.roomId + 1);
+                            }
+                        } else {
+                            player.pos = arrayRooms.get(player.pos.roomId + 1);
                         }
+                        
+                    }
                     break;
                 case "n" :
                     if (north.status == true) {
-                        player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                        if (lockedDoor == east) {
+                            if (useKey(key.status)) {
+                                player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                            }
+                        } else {
+                            player.pos = arrayRooms.get(holderRoom.roomId - 3);
                         }
-                        break;
+                        
+                    }
+                    break;
                 default : 
                 }
                 System.out.println("You entered a new room. ");
@@ -340,6 +401,34 @@ public class PlayGame {
             inventory = inventory.concat(treats[counter].treatName + " (" + treats[counter].treatString + ") ");
         }
         return inventory;
+    }
+
+    public static boolean checkLock(DungeonDoor lockedDoor) {
+        boolean locked = false;
+        if (lockedDoor != null) {
+            if (lockedDoor.locked) {
+            locked = true;
+        }
+        }
+        
+        return locked;
+    }
+
+    public static boolean useKey(boolean hasKey) {
+        boolean canMove = false;
+
+        if (hasKey) {
+            Scanner scannerUseKey = new Scanner(System.in);
+            System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
+            String useKey = scannerUseKey.nextLine();
+
+        } else {
+            System.out.println("The door is locked and you dont have the key. Find it to open the door.");
+        }
+
+        
+
+        return canMove;
     }
 }
 
