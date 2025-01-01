@@ -55,7 +55,7 @@ public class PlayGame {
         Key key = new Key("boss-key", false, false, room5);
 
         //Create player
-        Player player = new Player(room1, true, 20, 1);
+        Player player = new Player(room4, true, 20, 1);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
@@ -114,14 +114,19 @@ public class PlayGame {
                         String inv = scannerInv.nextLine();
                         switch(inv) {
                             case "g" :
-                                healthTreat.status = false;
-                                player.health = player.health + healthTreat.healing;
-                                System.out.println(showHealth(player, holderMob));
+                                if (healthTreat.status) {
+                                    healthTreat.status = false;
+                                    player.health = player.health + healthTreat.healing;
+                                    System.out.println(showHealth(player, holderMob));
+                                }
                                 break;
                             case "b" :
-                                damageTreat.status = false;
-                                holderMob.health = holderMob.health + damageTreat.damage;
-                                System.out.println(showHealth(player, holderMob));
+                                if (damageTreat.status) {
+                                    damageTreat.status = false;
+                                    holderMob.health = holderMob.health + damageTreat.damage;
+                                    System.out.println(showHealth(player, holderMob));
+                                }
+                                
                                 break;
                         }
                     }
@@ -227,7 +232,7 @@ public class PlayGame {
                     }
                 case "w" :
                     if (west.status == true) {
-                        if (lockedDoor == east) {
+                        if (lockedDoor == west) {
                             if (useKey(key.status)) {
                                 player.pos = arrayRooms.get(holderRoom.roomId - 2);
                             }
@@ -239,7 +244,7 @@ public class PlayGame {
                     break;
                 case "s" :
                     if (south.status == true) {
-                        if (lockedDoor == east) {
+                        if (lockedDoor == south) {
                             if (useKey(key.status)) {
                                 player.pos = arrayRooms.get(player.pos.roomId + 1);
                             }
@@ -251,7 +256,7 @@ public class PlayGame {
                     break;
                 case "n" :
                     if (north.status == true) {
-                        if (lockedDoor == east) {
+                        if (lockedDoor == north) {
                             if (useKey(key.status)) {
                                 player.pos = arrayRooms.get(holderRoom.roomId - 3);
                             }
@@ -421,6 +426,16 @@ public class PlayGame {
             Scanner scannerUseKey = new Scanner(System.in);
             System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
             String useKey = scannerUseKey.nextLine();
+            switch(useKey) {
+                case "y" :
+                    canMove = true;
+                    System.out.println("You picked up the key. This can be used to open locked doors.");
+                    break;
+                case "n" :
+                    System.out.println("The key will still be here if you change your mind.");
+                    break;
+            }
+
 
         } else {
             System.out.println("The door is locked and you dont have the key. Find it to open the door.");
