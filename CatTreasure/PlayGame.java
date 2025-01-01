@@ -223,12 +223,24 @@ public class PlayGame {
                 case "e" :
                     if (east.status == true) {
                         if (lockedDoor == east) {
-                            if (useKey(key.status)) {
-                                player.pos = arrayRooms.get(holderRoom.roomId);
+                            if (key.status) {
+                                Scanner scannerUseKey = new Scanner(System.in);
+                                System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
+                                String useKey = scannerUseKey.nextLine();
+                                switch(useKey) {
+                                    case "y" :
+                                        System.out.println("You picked up the key. This can be used to open locked doors.");
+                                        player.pos = arrayRooms.get(holderRoom.roomId);
+                                        break;
+                                    case "n" :
+                                        System.out.println("The key will still be here if you change your mind.");
+                                        break;
+                                }
+                            } else {
+                                System.out.println("The door is locked and you dont have the key. Find it to open the door.");
                             }
-                        } else {
-                            player.pos = arrayRooms.get(holderRoom.roomId);
-                        } 
+                        }
+                        player.pos = arrayRooms.get(holderRoom.roomId);
                     }
                 case "w" :
                     if (west.status == true) {
