@@ -17,12 +17,6 @@ public class PlayGame {
         HealthTreat healthTreat = new HealthTreat("good treats", "g", false, 5);
         DamageTreat damageTreat = new DamageTreat("bad treats", "b", true, 5);
 
-        //Inventory array
-        //ArrayList <Treat> arrayInv = new ArrayList<Treat>();
-        //arrayInv.add(damageTreat);
-
-        
-
         //create doors
         DungeonDoor door1 = new DungeonDoor(1, false);
         DungeonDoor door2 = new DungeonDoor(2, true);
@@ -142,7 +136,13 @@ public class PlayGame {
                     }
                     player.status = updateStatus(player.health);
                     if (player.status) {
-                        System.out.println("you won");
+                        System.out.println("You won!");
+                        if (holderMob.boss) {
+                            System.out.println("Congrats. You defeated the " + vaccum.mobName + ".");
+                            player.status = false;
+                        }
+                        holderRoom.roomDesc = "There is a defeated leaf in this room. ";
+                        holderRoom.mob = null;
                     } else {
                         System.out.println("you lost");
                     }
@@ -150,7 +150,7 @@ public class PlayGame {
             }
 
             if (player.status) {
-                //ME: key stuffs
+                //picking up key
                 if (key.keyPos == holderRoom) {
                     Scanner scannerKey = new Scanner(System.in);
                     System.out.println("You can pick up the key. Do you want to? Yes (y) or no (n)?");
