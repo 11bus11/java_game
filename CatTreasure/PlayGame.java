@@ -173,31 +173,31 @@ public class PlayGame {
                 south.status = false;
                 north.status = false;
                 //testing all doors connected to the players current position
-                Direction lockedDoor = null;
+                String lockedDoor = "";
                 if (holderRoom.getConn1() != null) {
                     north.status = true;
                     if (checkLock(holderRoom.getConn1())) {
-                        lockedDoor = north;
+                        lockedDoor = "n";
                     }
                 }
                 if (holderRoom.getConn2() != null) {
                     //checking which side the door is on
                     if (player.pos.roomId % 2 == 0) {
                         west.status = true;
-                        if (checkLock(holderRoom.getConn1())) {
-                            lockedDoor = west;
+                        if (checkLock(holderRoom.getConn2())) {
+                            lockedDoor = "w";
                         }          
                     } else {
                         east.status = true;
-                        if (checkLock(holderRoom.getConn1())) {
-                            lockedDoor = east;
+                        if (checkLock(holderRoom.getConn2())) {
+                            lockedDoor = "e";
                         }
                     }
                 }
                 if (holderRoom.getConn3() != null) {
                     south.status = true;
-                    if (checkLock(holderRoom.getConn1())) {
-                        lockedDoor = south;
+                    if (checkLock(holderRoom.getConn3())) {
+                        lockedDoor = "s";
                     }
                 }
 
@@ -218,22 +218,24 @@ public class PlayGame {
                 System.out.println("There are doors to the" + choices + ". Where do you want to go?");
                 String dir = scannerDir.nextLine();
                 //move player to the correct room
+                
+                boolean pick = false;
                 holderDir = arrayDirs.get(place);
                 switch(dir) {
                 case "e" :
                     if (east.status == true) {
-                        if (lockedDoor == east) {
+                        if (lockedDoor == "e") {
                             if (key.status) {
                                 Scanner scannerUseKey = new Scanner(System.in);
                                 System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
                                 String useKey = scannerUseKey.nextLine();
                                 switch(useKey) {
                                     case "y" :
-                                        System.out.println("You picked up the key. This can be used to open locked doors.");
+                                        System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId);
                                         break;
                                     case "n" :
-                                        System.out.println("The key will still be here if you change your mind.");
+                                        System.out.println("You did not unlock the door. The door is still locked.");
                                         break;
                                 }
                             } else {
@@ -241,46 +243,90 @@ public class PlayGame {
                             }
                         }
                         player.pos = arrayRooms.get(holderRoom.roomId);
+                        pick = true; 
                     }
                 case "w" :
                     if (west.status == true) {
-                        if (lockedDoor == west) {
-                            if (useKey(key.status)) {
-                                player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                        if (lockedDoor == "w") {
+                            if (key.status) {
+                                Scanner scannerUseKey = new Scanner(System.in);
+                                System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
+                                String useKey = scannerUseKey.nextLine();
+                                switch(useKey) {
+                                    case "y" :
+                                        System.out.println("You unlocked the door.");
+                                        player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                                        break;
+                                    case "n" :
+                                        System.out.println("You did not unlock the door. The door is still locked.");
+                                        break;
+                                }
+                            } else {
+                                System.out.println("The door is locked and you dont have the key. Find it to open the door.");
                             }
                         } else {
                             player.pos = arrayRooms.get(holderRoom.roomId - 2);
                         }
-                        
+                        pick = true; 
                     }
                     break;
                 case "s" :
                     if (south.status == true) {
-                        if (lockedDoor == south) {
-                            if (useKey(key.status)) {
-                                player.pos = arrayRooms.get(player.pos.roomId + 1);
+                        if (lockedDoor == "s") {
+                            if (key.status) {
+                                Scanner scannerUseKey = new Scanner(System.in);
+                                System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
+                                String useKey = scannerUseKey.nextLine();
+                                switch(useKey) {
+                                    case "y" :
+                                        System.out.println("You unlocked the door.");
+                                        player.pos = arrayRooms.get(holderRoom.roomId + 1);
+                                        break;
+                                    case "n" :
+                                        System.out.println("You did not unlock the door. The door is still locked.");
+                                        break;
+                                }
+                            } else {
+                                System.out.println("The door is locked and you dont have the key. Find it to open the door.");
                             }
                         } else {
                             player.pos = arrayRooms.get(player.pos.roomId + 1);
                         }
-                        
+                        pick = true; 
                     }
                     break;
                 case "n" :
+                    boolean test = true;
                     if (north.status == true) {
-                        if (lockedDoor == north) {
-                            if (useKey(key.status)) {
-                                player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                        if (lockedDoor == "n") {
+                            if (key.status) {
+                                Scanner scannerUseKey = new Scanner(System.in);
+                                System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
+                                String useKey = scannerUseKey.nextLine();
+                                switch(useKey) {
+                                    case "y" :
+                                        System.out.println("You unlocked the door.");
+                                        player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                                        break;
+                                    case "n" :
+                                        System.out.println("You did not unlock the door. The door is still locked.");
+                                        break;
+                                }
+                            } else {
+                                System.out.println("The door is locked and you dont have the key. Find it to open the door.");
                             }
                         } else {
                             player.pos = arrayRooms.get(holderRoom.roomId - 3);
                         }
-                        
+                        pick = true; 
                     }
                     break;
-                default : 
+                default :
+                    System.out.println("No direction chosen.");
                 }
-                System.out.println("You entered a new room. ");
+                if (pick) {
+                    System.out.println("You entered a new room. ");
+                }  
                         
                 place++;
                 dir = "";
@@ -429,33 +475,6 @@ public class PlayGame {
         }
         
         return locked;
-    }
-
-    public static boolean useKey(boolean hasKey) {
-        boolean canMove = false;
-
-        if (hasKey) {
-            Scanner scannerUseKey = new Scanner(System.in);
-            System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
-            String useKey = scannerUseKey.nextLine();
-            switch(useKey) {
-                case "y" :
-                    canMove = true;
-                    System.out.println("You picked up the key. This can be used to open locked doors.");
-                    break;
-                case "n" :
-                    System.out.println("The key will still be here if you change your mind.");
-                    break;
-            }
-
-
-        } else {
-            System.out.println("The door is locked and you dont have the key. Find it to open the door.");
-        }
-
-        
-
-        return canMove;
     }
 }
 
