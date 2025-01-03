@@ -62,7 +62,6 @@ Vaccums are bosses. They have a special attack (superAttack) that gets charged u
 ### Key
 `String keyName;
     boolean status;
-    boolean used;
     DungeonRoom keyPos;`
 Keys open locked doors. KeyPos shows where the key is located. The status shows if the user has a key.
 
