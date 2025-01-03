@@ -28,6 +28,38 @@ Just as with the rooms, the door id is for identification. The locked boolean is
     boolean status;`
 DirName shows which directin it is and status shows if it is one of the available options (if there is a room to that direction).
 
+### Treat
+`String treatName;
+    String treatString;
+    boolean status;`
+
+#### Damage treats
+`int damage;`
+
+#### Health treats
+`int healing;`
+
+### Mob
+`boolean boss;
+    String mobName;
+    boolean status;
+    int health;
+    int damage;`
+
+#### Leaves
+
+
+#### Vaccum
+`boolean superAttack;
+    int superCharge;
+    int superDamage;`
+
+### Key
+`String keyName;
+    boolean status;
+    boolean used;
+    DungeonRoom keyPos;`
+
 ## The logic
 The logic of the game is contained in a while loop which runs as long as the player's status is "true". This is so that the game will end when the player dies (status is set to "false").
 
