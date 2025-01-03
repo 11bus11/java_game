@@ -26,18 +26,21 @@ Just as with the rooms, the door id is for identification. The locked boolean is
 `String dirName;
     String dirString;
     boolean status;`
-DirName shows which directin it is and status shows if it is one of the available options (if there is a room to that direction).
+DirName shows which direction it is and status shows if it is one of the available options (if there is a room to that direction).
 
 ### Treat
 `String treatName;
     String treatString;
     boolean status;`
+The treats work like healing and damage potions. The status shows if the player has one or not.
 
 #### Damage treats
 `int damage;`
+This treat damages the enemy.
 
 #### Health treats
 `int healing;`
+This treat heals the player.
 
 ### Mob
 `boolean boss;
@@ -45,20 +48,23 @@ DirName shows which directin it is and status shows if it is one of the availabl
     boolean status;
     int health;
     int damage;`
+The boss boolean tells the program if the enemy is a boss or not.
 
 #### Leaves
-
+Leaves are not bosses. They are low level enemies.
 
 #### Vaccum
 `boolean superAttack;
     int superCharge;
     int superDamage;`
+Vaccums are bosses. They have a special attack (superAttack) that gets charged up a bit after every normal attack. 
 
 ### Key
 `String keyName;
     boolean status;
     boolean used;
     DungeonRoom keyPos;`
+Keys open locked doors. KeyPos shows where the key is located. The status shows if the user has a key.
 
 ## The logic
 The logic of the game is contained in a while loop which runs as long as the player's status is "true". This is so that the game will end when the player dies (status is set to "false").
