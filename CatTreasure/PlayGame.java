@@ -46,7 +46,7 @@ public class PlayGame {
         arrayRooms.add(room6);
         
         //create key
-        Key key = new Key("boss-key", false, false, room5);
+        Key key = new Key("boss-key", false, room5);
 
         //Create player
         Player player = new Player(room4, true, 20, 1);
