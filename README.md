@@ -75,7 +75,10 @@ The program then checks how many doors are connected to the room in which the pl
 If there is an item or mob in the room, the logic for handling that will run before the user can choose a direction to go in. Mobs are handled before items.
 
 ### Mob fights
+When the player fights a mob, they alternate attacks. There is a chance that the attack misses. Using Math.random(), the program generates a number between 0 and one (before every attack). That number is then used for decidig if the attack misses or not. For example, if the number generated before the player attacks is smaller than or equal to 0.1, the attack misses. The mob's chance of missing is slightly higher than the players. If an attack hits, the health is updated. If either the player's of the mob's health gets to 0, they loose and their status is changed to "false".
 
+If it is a boss-fight, the superCharge will be incremented by 1 after each mob-attack. When the charge is at 5, the boss' next attack will be a special attack with higher damage. After this, the chaged is set to 0.
+    
 ### Items (including keys)
 
 
