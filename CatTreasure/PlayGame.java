@@ -9,7 +9,7 @@ import java.lang.Math;
 public class PlayGame {
     public static void main(String[] args) {
         //create mobs
-        Vaccum vaccum = new Vaccum(true, "The scary vaccum", true, 20, 1, false, 0, 3);
+        Vaccum vaccum = new Vaccum(true, "The scary vaccum", true, 20, 1, 0, 3);
         Leaves leaf1 = new Leaves(false, "Bob the leaf", true, 5, 1);
         Leaves leaf2 = new Leaves(false, "Bill the leaf", true, 5, 1);
         
@@ -471,9 +471,8 @@ public class PlayGame {
         if (lockedDoor != null) {
             if (lockedDoor.locked) {
             locked = true;
+            }
         }
-        }
-        
         return locked;
     }
 }
