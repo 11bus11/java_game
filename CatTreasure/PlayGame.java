@@ -36,7 +36,7 @@ public class PlayGame {
         DungeonRoom room3 = new DungeonRoom(3, "The room is empty except for some toys.", door1, door3, door4, null, null);
         DungeonRoom room4 = new DungeonRoom(4, "This room contains something that moves, but you dont know what it is.", door2, door3, door4, leaf1, null);
         DungeonRoom room5 = new DungeonRoom(5, "There is a key in the room, and some nice beds.", door4, null, null, leaf2, null);
-        DungeonRoom room6 = new DungeonRoom(6, "This is the room you started in. Your favourite blanket is here.", door5, null, null, null, null);
+        DungeonRoom room6 = new DungeonRoom(6, "This is the room you start in. Your favourite blanket is here.", door5, null, null, null, null);
         ArrayList <DungeonRoom> arrayRooms = new ArrayList<DungeonRoom>();
         arrayRooms.add(room1);
         arrayRooms.add(room2);
@@ -49,7 +49,7 @@ public class PlayGame {
         Key key = new Key("boss-key", false, room5);
 
         //Create player
-        Player player = new Player(room4, true, 20, 1);
+        Player player = new Player(room6, true, 20, 1);
 
         //Creating directions
         Direction west = new Direction("west", "w", false);
@@ -64,6 +64,10 @@ public class PlayGame {
 
         DungeonRoom holderRoom;
         int place = 0;
+        boolean defeatedLeaf = true;
+        System.out.println("Make sure you read the instructions in the README.");
+        System.out.println("_______________");
+
         //game-loop (runs while player is alive)
         while (player.status == true) {
             holderRoom = player.pos;
@@ -86,6 +90,7 @@ public class PlayGame {
                     case "y" :
                         holderTreat.status = true;
                         holderRoom.treat = null;
+                        holderRoom.roomDesc = "This room used to have treats in it.";
                         System.out.println("You picked up the treat. It is now in your inventory and can be used during fights.");
                         break;
                     case "n" :
@@ -123,7 +128,6 @@ public class PlayGame {
                                     System.out.println("You used " + damageTreat.treatName + ".");
                                     System.out.println(showHealth(player, holderMob));
                                 }
-                                
                                 break;
                             default:
                                 System.out.println("You did not use any treats.");
@@ -147,6 +151,7 @@ public class PlayGame {
                             player.status = false;
                         }
                         holderRoom.roomDesc = "There is a defeated leaf in this room. ";
+                        defeatedLeaf = true;
                         holderRoom.mob = null;
                     } else {
                         System.out.println("You lost :(");
@@ -164,6 +169,11 @@ public class PlayGame {
                     switch(keyItem) {
                         case "y" :
                             key.status = true;
+                            if (defeatedLeaf) {
+                                holderRoom.roomDesc = "There is no longer a key in this room. Just some nice beds and a defeated leaf.";
+                            } else {
+                                holderRoom.roomDesc = "There is no longer a key in this room. Just some nice beds.";
+                            }
                             System.out.println("You picked up the key. This can be used to open locked doors.");
                             key.keyPos = null;
                             break;
@@ -246,6 +256,7 @@ public class PlayGame {
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId);
                                         lockedDoor.locked = false;
+                                        pick = true; 
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -256,8 +267,8 @@ public class PlayGame {
                             }
                         } else {
                             player.pos = arrayRooms.get(player.pos.roomId);
+                            pick = true; 
                         }
-                        pick = true; 
                     }
                 case "w" :
                     if (west.status == true) {
@@ -271,6 +282,7 @@ public class PlayGame {
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId - 2);
                                         lockedDoor.locked = false;
+                                        pick = true; 
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -281,8 +293,8 @@ public class PlayGame {
                             }
                         } else {
                             player.pos = arrayRooms.get(holderRoom.roomId - 2);
-                        }
-                        pick = true; 
+                            pick = true; 
+                        } 
                     }
                     break;
                 case "s" :
@@ -297,6 +309,7 @@ public class PlayGame {
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId + 1);
                                         lockedDoor.locked = false;
+                                        pick = true; 
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -307,8 +320,8 @@ public class PlayGame {
                             }
                         } else {
                             player.pos = arrayRooms.get(player.pos.roomId + 1);
-                        }
-                        pick = true; 
+                            pick = true; 
+                        } 
                     }
                     break;
                 case "n" :
@@ -323,6 +336,7 @@ public class PlayGame {
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId - 3);
                                         lockedDoor.locked = false;
+                                        pick = true; 
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -333,8 +347,8 @@ public class PlayGame {
                             }
                         } else {
                             player.pos = arrayRooms.get(holderRoom.roomId - 3);
-                        }
-                        pick = true; 
+                            pick = true; 
+                        } 
                     }
                     break;
                 default :
@@ -342,7 +356,9 @@ public class PlayGame {
                 }
                 if (pick) {
                     System.out.println("You entered a new room. ");
-                }  
+                } else {
+                    System.out.println("You couldnt enter the room.");
+                }
                         
                 place++;
                 dir = "";
