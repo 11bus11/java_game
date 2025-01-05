@@ -103,3 +103,5 @@ The treats and key can be picked up and then used. A key can open locked doors, 
 
 
 *This project was created as part of the "Programmutveckling med Java" course (D0019N) at Luleå University of Technology*
+
+Special thanks to Robin K. who helped me find the bugs in my program.
