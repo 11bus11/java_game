@@ -160,6 +160,7 @@ public class PlayGame {
                         case "y" :
                             key.status = true;
                             System.out.println("You picked up the key. This can be used to open locked doors.");
+                            key.keyPos = null;
                             break;
                         case "n" :
                             System.out.println("The key will still be here if you change your mind.");
