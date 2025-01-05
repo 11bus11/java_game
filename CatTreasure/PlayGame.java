@@ -104,13 +104,13 @@ public class PlayGame {
                 String stringInventory = showInventory(healthTreat, damageTreat);
                 System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
                 System.out.println(showHealth(player, holderMob));
-                System.out.println("Your inventory: " + stringInventory);
+                System.out.println("Your inventory:" + stringInventory);
                 //give player the option to retreat
                 if (chooseMove()) {
                     //option to use inventory stuff
                     if (healthTreat.status || damageTreat.status) {
                         Scanner scannerInv = new Scanner(System.in);
-                        System.out.println("Do you want to use an item before the fight? You can use " + stringInventory + ". Or dont use any (n).");
+                        System.out.println("Do you want to use an item before the fight? You can use" + stringInventory + ". Or dont use any (n).");
                         String inv = scannerInv.nextLine();
                         switch(inv) {
                             case "g" :
@@ -493,7 +493,7 @@ public class PlayGame {
         String inventory = "";
         for (int counter = 0; counter <= 1; counter++)
         if (treats[counter].status) {
-            inventory = inventory.concat(treats[counter].treatName + " (" + treats[counter].treatString + ") ");
+            inventory = inventory.concat(" " + treats[counter].treatName + " (" + treats[counter].treatString + ")");
         }
         return inventory;
     }
