@@ -458,10 +458,10 @@ public class PlayGame {
         boolean attack = true;
         if (move.equals("a")) {
             attack = true;
-            System.out.println("You fight." + attack);
+            System.out.println("You fight.");
         } else {
             attack = false;
-            System.out.println("You retreated." + attack);
+            System.out.println("You retreated.");
         }
         move = "";
         return attack;
