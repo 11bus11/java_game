@@ -100,6 +100,7 @@ public class PlayGame {
                 System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
                 System.out.println(showHealth(player, holderMob));
                 System.out.println("Your inventory: " + stringInventory);
+                //give player the option to retreat
                 if (chooseMove()) {
                     //option to use inventory stuff
                     if (healthTreat.status || damageTreat.status) {
@@ -111,6 +112,7 @@ public class PlayGame {
                                 if (healthTreat.status) {
                                     healthTreat.status = false;
                                     player.health = player.health + healthTreat.healing;
+                                    System.out.println("You used " + healthTreat.treatName + ".");
                                     System.out.println(showHealth(player, holderMob));
                                 }
                                 break;
@@ -118,13 +120,14 @@ public class PlayGame {
                                 if (damageTreat.status) {
                                     damageTreat.status = false;
                                     holderMob.health = holderMob.health + damageTreat.damage;
+                                    System.out.println("You used " + damageTreat.treatName + ".");
                                     System.out.println(showHealth(player, holderMob));
                                 }
                                 
                                 break;
                         }
                     }
-                    //tell player about the mob
+                    //tell player about the mob and run battle
                     if (holderMob.boss) {
                         int[] temp = doBossBattle(player, vaccum);
                         player.health = temp[0];
@@ -144,7 +147,7 @@ public class PlayGame {
                         holderRoom.roomDesc = "There is a defeated leaf in this room. ";
                         holderRoom.mob = null;
                     } else {
-                        System.out.println("you lost");
+                        System.out.println("You lost :(");
                     }
                 }
             }
@@ -220,12 +223,12 @@ public class PlayGame {
                     place++;
                 }
                 place = 0;
-                //getting the players choice
+                //getting the players direction choice
                 Scanner scannerDir = new Scanner(System.in);
                 System.out.println("There are doors to the" + choices + ". Where do you want to go?");
                 String dir = scannerDir.nextLine();
-                //move player to the correct room
-                
+
+                //move player to the correct room and key logic for using key
                 boolean pick = false;
                 holderDir = arrayDirs.get(place);
                 switch(dir) {
@@ -428,13 +431,11 @@ public class PlayGame {
             statusNo2 = updateStatus(no2.health);
             System.out.println(showHealth(no1, no2));
         }
-
-        
-
         int[] listHealth = {no1.health, no2.health};
         return listHealth;
     }
 
+    //check and update if player or mob is alive after fight
     public static boolean updateStatus(int health) {
         boolean status;
         if (health <=0) {
@@ -451,6 +452,7 @@ public class PlayGame {
         return health;
     }
 
+    //choose to fight or retreat
     public static boolean chooseMove() {
         Scanner scannerMove = new Scanner(System.in);
         System.out.println("Do you want to attack (a) or retreat (r)");
@@ -467,6 +469,7 @@ public class PlayGame {
         return attack;
     }
 
+    //create the string for thowing inventory to user
     public static String showInventory(Treat treat1, Treat treat2) {
         Treat[] treats = {treat1, treat2};
         String inventory = "";
@@ -477,6 +480,7 @@ public class PlayGame {
         return inventory;
     }
 
+    //checking if the chosen door is locked or not
     public static boolean checkLock(DungeonDoor lockedDoor) {
         boolean locked = false;
         if (lockedDoor != null) {
