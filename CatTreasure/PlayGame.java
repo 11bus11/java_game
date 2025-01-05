@@ -173,11 +173,13 @@ public class PlayGame {
                 south.status = false;
                 north.status = false;
                 //testing all doors connected to the players current position
-                String lockedDoor = "";
+                String lockedDir = "";
+                DungeonDoor lockedDoor = null;
                 if (holderRoom.getConn1() != null) {
                     north.status = true;
                     if (checkLock(holderRoom.getConn1())) {
-                        lockedDoor = "n";
+                        lockedDir = "n";
+                        lockedDoor = holderRoom.getConn1();
                     }
                 }
                 if (holderRoom.getConn2() != null) {
@@ -185,19 +187,23 @@ public class PlayGame {
                     if (player.pos.roomId % 2 == 0) {
                         west.status = true;
                         if (checkLock(holderRoom.getConn2())) {
-                            lockedDoor = "w";
+                            lockedDir = "w";
+                            lockedDoor = holderRoom.getConn2();
                         }          
                     } else {
                         east.status = true;
                         if (checkLock(holderRoom.getConn2())) {
-                            lockedDoor = "e";
+                            lockedDir = "e";
+                            lockedDoor = holderRoom.getConn2();
                         }
                     }
                 }
                 if (holderRoom.getConn3() != null) {
                     south.status = true;
                     if (checkLock(holderRoom.getConn3())) {
-                        lockedDoor = "s";
+                        lockedDir = "s";
+                        lockedDoor = holderRoom.getConn3();
+
                     }
                 }
 
@@ -224,7 +230,7 @@ public class PlayGame {
                 switch(dir) {
                 case "e" :
                     if (east.status == true) {
-                        if (lockedDoor == "e") {
+                        if (lockedDir == "e") {
                             if (key.status) {
                                 Scanner scannerUseKey = new Scanner(System.in);
                                 System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
@@ -233,6 +239,7 @@ public class PlayGame {
                                     case "y" :
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId);
+                                        lockedDoor.locked = false;
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -241,13 +248,14 @@ public class PlayGame {
                             } else {
                                 System.out.println("The door is locked and you dont have the key. Find it to open the door.");
                             }
+                        } else {
+                            player.pos = arrayRooms.get(player.pos.roomId);
                         }
-                        player.pos = arrayRooms.get(holderRoom.roomId);
                         pick = true; 
                     }
                 case "w" :
                     if (west.status == true) {
-                        if (lockedDoor == "w") {
+                        if (lockedDir == "w") {
                             if (key.status) {
                                 Scanner scannerUseKey = new Scanner(System.in);
                                 System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
@@ -256,6 +264,7 @@ public class PlayGame {
                                     case "y" :
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId - 2);
+                                        lockedDoor.locked = false;
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -272,7 +281,7 @@ public class PlayGame {
                     break;
                 case "s" :
                     if (south.status == true) {
-                        if (lockedDoor == "s") {
+                        if (lockedDir == "s") {
                             if (key.status) {
                                 Scanner scannerUseKey = new Scanner(System.in);
                                 System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
@@ -281,6 +290,7 @@ public class PlayGame {
                                     case "y" :
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId + 1);
+                                        lockedDoor.locked = false;
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
@@ -296,9 +306,8 @@ public class PlayGame {
                     }
                     break;
                 case "n" :
-                    boolean test = true;
                     if (north.status == true) {
-                        if (lockedDoor == "n") {
+                        if (lockedDir == "n") {
                             if (key.status) {
                                 Scanner scannerUseKey = new Scanner(System.in);
                                 System.out.println("The door is locked. Do you want to use the key to open the door? Yes (y) or no (n)?");
@@ -307,6 +316,7 @@ public class PlayGame {
                                     case "y" :
                                         System.out.println("You unlocked the door.");
                                         player.pos = arrayRooms.get(holderRoom.roomId - 3);
+                                        lockedDoor.locked = false;
                                         break;
                                     case "n" :
                                         System.out.println("You did not unlock the door. The door is still locked.");
