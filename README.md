@@ -102,6 +102,7 @@ It is also possible to retreat from fights, but the game cannot be won without f
 The treats and key can be picked up and then used. A key can open locked doors, and the question if you want to use it is asked when you try to go through a locked door. If a key is not used to unlock the door, the room on the other side cannot be reached. Treats can be used before a fight. At most one treat can be used at a time. If a treat is used, the healths are adjusted accordingly before the fight begins (see what the treats do under Instructions).
 
 
+
 *This project was created as part of the "Programmutveckling med Java" course (D0019N) at Luleå University of Technology*
 
-Special thanks to Robin K. who helped me find the bugs in my program.
+*Special thanks to Robin K. who helped me find the bugs in my program.*
