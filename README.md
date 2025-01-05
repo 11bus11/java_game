@@ -3,6 +3,17 @@
 
 A command-line dungeon-crawler game where you play as a cat. 
 
+## Instructions
+You input instructions on the keyboard. The input needed to make a choice is shown in parenthesis. If a different input is given, that is counted as a negative. So if the choices are yes (y) and no (n) but you input "u", the program will handle it the same as if you input "n". 
+
+The treats that exist are:
+Bad treats - When used it inflicts damage on the enemy.
+Good treats - When used it heals the player.
+
+The enemies are:
+Leaves - These are low-level enemies.
+Vaccum - This is the strongest enemy and the final boss.
+
 ## The classes
 I chose to make classes for the player, the rooms, the doors and the directions. The reason for making the directions into a class was that I could give them both a status and a name. The alternitive was to make 8 variables. The rest of my classes were chosen based on the fact that they exist in the instruction example (combined with practicality). 
 
