@@ -3,6 +3,8 @@
 
 A command-line dungeon-crawler game where you play as a cat. 
 
+The game logic is far from perfect, and if I were to redo it from scratch there would be some changes in the structure of the classes.
+
 ## Instructions
 You input instructions on the keyboard. The input needed to make a choice is shown in parenthesis. If a different input is given, that is counted as a negative. So if the choices are yes (y) and no (n) but you input "u", the program will handle it the same as if you input "n". 
 
@@ -90,11 +92,14 @@ The program then checks how many doors are connected to the room in which the pl
 If there is an item or mob in the room, the logic for handling that will run before the user can choose a direction to go in. Mobs are handled before items.
 
 ### Mob fights
-When the player fights a mob, they alternate attacks. There is a chance that the attack misses. Using Math.random(), the program generates a number between 0 and one (before every attack). That number is then used for decidig if the attack misses or not. For example, if the number generated before the player attacks is smaller than or equal to 0.1, the attack misses. The mob's chance of missing is slightly higher than the players. If an attack hits, the health is updated. If either the player's of the mob's health gets to 0, they loose and their status is changed to "false".
+When the player fights a mob, they alternate attacks. There is a chance that the attack misses. Using Math.random(), the program generates a number between 0 and one (before every attack). That number is then used for deciding if the attack misses or not. For example, if the number generated before the player attacks is smaller than or equal to 0.1, the attack misses. The mob's chance of missing is slightly higher than the players. If an attack hits, the health is updated. If either the player's of the mob's health gets to 0, they loose and their status is changed to "false".
 
 If it is a boss-fight, the superCharge will be incremented by 1 after each mob-attack. When the charge is at 5, the boss' next attack will be a special attack with higher damage. After this, the chaged is set to 0.
+
+It is also possible to retreat from fights, but the game cannot be won without fighting the boss.
     
 ### Items (including keys)
+The treats and key can be picked up and then used. A key can open locked doors, and the question if you want to use it is asked when you try to go through a locked door. If a key is not used to unlock the door, the room on the other side cannot be reached. Treats can be used before a fight. At most one treat can be used at a time. If a treat is used, the healths are adjusted accordingly before the fight begins (see what the treats do under Instructions).
 
 
 *This project was created as part of the "Programmutveckling med Java" course (D0019N) at Luleå University of Technology*
