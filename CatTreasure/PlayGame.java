@@ -105,7 +105,7 @@ public class PlayGame {
                     //option to use inventory stuff
                     if (healthTreat.status || damageTreat.status) {
                         Scanner scannerInv = new Scanner(System.in);
-                        System.out.println("Do you want to use an item before the fight? You can use " + stringInventory + ".");
+                        System.out.println("Do you want to use an item before the fight? You can use " + stringInventory + ". Or dont use any (n).");
                         String inv = scannerInv.nextLine();
                         switch(inv) {
                             case "g" :
@@ -125,6 +125,8 @@ public class PlayGame {
                                 }
                                 
                                 break;
+                            default:
+                                System.out.println("You did not use any treats.");
                         }
                     }
                     //tell player about the mob and run battle
