@@ -35,7 +35,7 @@ public class PlayGame {
         DungeonRoom room2 = new DungeonRoom(2, "In the middle of the room is a monster; a vacuum cleaner.", null, null, door2, vaccum, null);
         DungeonRoom room3 = new DungeonRoom(3, "The room is empty except for some toys.", door1, door3, door4, null, null);
         DungeonRoom room4 = new DungeonRoom(4, "This room contains something that moves, but you dont know what it is.", door2, door3, door4, leaf1, null);
-        DungeonRoom room5 = new DungeonRoom(5, "There is a key in the room, and some nice beds.", door4, null, null, leaf2, null);
+        DungeonRoom room5 = new DungeonRoom(5, "There is a key in the room.", door4, null, null, leaf2, null);
         DungeonRoom room6 = new DungeonRoom(6, "This is the room you start in. Your favourite blanket is here.", door5, null, null, null, null);
         ArrayList <DungeonRoom> arrayRooms = new ArrayList<DungeonRoom>();
         arrayRooms.add(room1);
@@ -142,6 +142,8 @@ public class PlayGame {
                         int[] temp = doMinionBattle(player, holderMob);
                         player.health = temp[0];
                         holderMob.health = temp[1];
+                        holderRoom.roomDesc = "There is a defeated leaf in this room. ";
+                        defeatedLeaf = true;
                     }
                     player.status = updateStatus(player.health);
                     if (player.status) {
@@ -150,8 +152,7 @@ public class PlayGame {
                             System.out.println("Congrats. You defeated the " + vaccum.mobName + ".");
                             player.status = false;
                         }
-                        holderRoom.roomDesc = "There is a defeated leaf in this room. ";
-                        defeatedLeaf = true;
+                        
                         holderRoom.mob = null;
                     } else {
                         System.out.println("You lost :(");
@@ -169,11 +170,8 @@ public class PlayGame {
                     switch(keyItem) {
                         case "y" :
                             key.status = true;
-                            if (defeatedLeaf) {
-                                holderRoom.roomDesc = "There is no longer a key in this room. Just some nice beds and a defeated leaf.";
-                            } else {
-                                holderRoom.roomDesc = "There is no longer a key in this room. Just some nice beds.";
-                            }
+                            holderRoom.roomDesc = "There is no longer a key in this room. Just some nice beds.";
+
                             System.out.println("You picked up the key. This can be used to open locked doors.");
                             key.keyPos = null;
                             break;
