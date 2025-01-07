@@ -3,8 +3,6 @@
 
 A command-line dungeon-crawler game where you play as a cat. 
 
-The game logic is far from perfect, and if I were to redo it from scratch there would be some changes in the structure of the classes.
-
 ## Instructions
 You input instructions on the keyboard. The input needed to make a choice is shown in parenthesis. If a different input is given, that is counted as a negative. So if the choices are yes (y) and no (n) but you input "u", the program will handle it the same as if you input "n". 
 
