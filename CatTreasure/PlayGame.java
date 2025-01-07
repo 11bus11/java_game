@@ -84,7 +84,7 @@ public class PlayGame {
             //asking if player wants to pick it up
             if (holderTreat != null) {
                 Scanner scannerPickup = new Scanner(System.in);
-                System.out.println("There is a " + holderTreat.treatName + " in this room. To you want to pick it up? Yes (y) or no (n)?");
+                System.out.println("There are " + holderTreat.treatName + " in this room. Do you want to pick them up? Yes (y) or no (n)?");
                 String pickup = scannerPickup.nextLine();
                 switch(pickup) {
                     case "y" :
