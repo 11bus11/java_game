@@ -9,7 +9,7 @@ public class DungeonRoom {
     Mob mob;
     Treat treat;
 
-    //constructor//
+    //constructor
     public DungeonRoom(int roomId, String roomDesc, DungeonDoor conn1, DungeonDoor conn2, DungeonDoor conn3, Mob mob, Treat treat) {
         this.roomId = roomId;
         this.roomDesc = roomDesc;

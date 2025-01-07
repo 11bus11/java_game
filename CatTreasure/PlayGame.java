@@ -65,6 +65,8 @@ public class PlayGame {
         DungeonRoom holderRoom;
         int place = 0;
         boolean defeatedLeaf = true;
+
+        //reminder to read instructions
         System.out.println("Make sure you read the instructions in the README.");
         System.out.println("_______________");
 
@@ -81,7 +83,7 @@ public class PlayGame {
             System.out.println(holderRoom.roomDesc);
 
             //checking if the room contains a treat
-            //asking if player wants to pick it up
+            //and asking if player wants to pick it up
             if (holderTreat != null) {
                 Scanner scannerPickup = new Scanner(System.in);
                 System.out.println("There are " + holderTreat.treatName + " in this room. Do you want to pick them up? Yes (y) or no (n)?");
@@ -99,7 +101,7 @@ public class PlayGame {
                 }
             }
 
-            //checking if the room contains a mob and starts the fight
+            //checking if the room contains a mob and fight logic
             if (holderMob != null) {
                 String stringInventory = showInventory(healthTreat, damageTreat);
                 System.out.println("There is a scary thing here. It is " + holderMob.mobName + ".");
@@ -161,12 +163,11 @@ public class PlayGame {
             }
 
             if (player.status) {
-                //picking up key
+                //checking if room has a key and if player vants to pick it up
                 if (key.keyPos == holderRoom) {
                     Scanner scannerKey = new Scanner(System.in);
                     System.out.println("You can pick up the key. Do you want to? Yes (y) or no (n)?");
                     String keyItem = scannerKey.nextLine();
-
                     switch(keyItem) {
                         case "y" :
                             key.status = true;
@@ -238,7 +239,7 @@ public class PlayGame {
                 System.out.println("There are doors to the" + choices + ". Where do you want to go?");
                 String dir = scannerDir.nextLine();
 
-                //move player to the correct room and key logic for using key
+                //move player to the correct room and logic for using key
                 boolean pick = false;
                 holderDir = arrayDirs.get(place);
                 switch(dir) {
@@ -365,7 +366,7 @@ public class PlayGame {
         }  
         
     }
-    //Show health statuses to player
+    //Show health to player
     public static String showHealth(Player no1, Mob no2) {
         int no1CurrHealth = no1.getHealth();
         int no2CurrHealth = no2.getHealth();
@@ -418,13 +419,13 @@ public class PlayGame {
         
         while (statusNo1 && statusNo2) {
             missAttack = Math.random();
+            //Mob attack
             if (charge >= 5) {
                 System.out.println(no2.mobName + " attacks you with a super attack and does " + no2.superDamage + " in damage.");
                 no1.health = damageHealth(no2.superDamage, no1.health);
                 charge = 0;
             } else {
                 charge++; 
-                //Mob attacks
                 if (missAttack <= 0.2) {
                     System.out.println(no2.mobName + " attacks you but miss.");
                 } else {

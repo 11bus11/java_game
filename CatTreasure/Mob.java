@@ -7,6 +7,7 @@ public class Mob {
     int health;
     int damage;
 
+    //constructor
     public Mob(boolean boss, String mobName, boolean status, int health, int damage) {
         this.boss = boss;
         this.mobName = mobName;

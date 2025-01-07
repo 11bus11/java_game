@@ -5,7 +5,7 @@ public class Direction {
     String dirString;
     boolean status;
 
-
+    //constructor
     public Direction(String dirName, String dirString, boolean status) {
         this.dirName = dirName;
         this.dirString = dirString;

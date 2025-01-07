@@ -5,6 +5,7 @@ public class Key {
     boolean status;
     DungeonRoom keyPos;
 
+    //constructor
     public Key(String keyName, boolean status, DungeonRoom keyPos) {
         this.keyName = keyName;
         this.status = status;

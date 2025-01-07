@@ -6,6 +6,7 @@ public class Player {
     int health;
     int damage;
 
+    //constructor
     public Player(DungeonRoom pos, Boolean status, int health, int damage) {
         this.pos = pos;
         this.status = status;
